@@ -1,4 +1,5 @@
-import 'package:dio/dio.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -124,14 +125,14 @@ class _LandingPageState extends ConsumerState<LandingPage> {
             if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Login failed with status: ${e}'),
+                content: Text('Login failed with status: $e'),
                 duration: Duration(seconds: 5),
                 action: SnackBarAction(
                     label: "send",
                     onPressed: () async {
                       await SharePlus.instance.share(ShareParams(
                         title: "Error Report",
-                        text: 'Error when attempting to sign in ${e}',
+                        text: 'Error when attempting to sign in $e',
                       ));
                     }),
               ),
@@ -156,7 +157,7 @@ class _LandingPageState extends ConsumerState<LandingPage> {
           }
         },
         onLongPress: () {
-          print("Long press for theme change");
+          log("Long press for theme change");
           ref.read(themeModeProvider.notifier).changeTheme();
         },
         icon: Image.asset(

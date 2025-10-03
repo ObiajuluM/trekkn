@@ -227,8 +227,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     await signOutFromGoogle();
                     await signOutFromServer();
                     // if (!context.mounted) return;
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                    // Navigator.pop(context);
                     // Navigator.pop(context);
                     // Navigator.of(context).popUntil((route) => route.isFirst);
                   },

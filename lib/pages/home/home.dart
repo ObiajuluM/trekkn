@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/balance/balance.dart';
 import 'package:walkit/pages/goal/goal.dart';
@@ -355,8 +356,7 @@ class _CircularProgressBarState extends State<CircularProgressBar>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  // TODO: do comma formatting
-                  '${(widget.progress * widget.goal).toInt()}',
+                  "${(widget.progress * widget.goal).toInt() >= 1000000 ? compactCurrencyFormat.format((widget.progress * widget.goal).toInt()) : currencyFormat.format((widget.progress * widget.goal).toInt())} ",
                   style: TextStyle(
                     fontFamily: "EvilEmpire",
                     fontSize: size * 0.2,

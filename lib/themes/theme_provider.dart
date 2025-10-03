@@ -3,9 +3,9 @@ import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeModeProvider extends StateNotifier<ThemeMode> {
-  ThemeModeProvider() : super(ThemeMode.system){
+  ThemeModeProvider() : super(ThemeMode.system);
 
-  }
+  
 
   Future<void> changeTheme() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

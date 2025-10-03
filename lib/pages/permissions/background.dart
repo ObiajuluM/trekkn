@@ -54,7 +54,7 @@ class _BackgroundPermissionPageState
                 "Permit me to track your steps in the background, even if the app is closed.",
             style: TextStyle(fontSize: 24),
             onComplete: () {
-              // TODO: request permission
+              
               setState(() {
                 doneCapping = true;
               });

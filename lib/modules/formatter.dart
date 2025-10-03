@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 final currencyFormat = NumberFormat.currency(symbol: '', decimalDigits: 0);

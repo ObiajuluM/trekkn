@@ -1,7 +1,7 @@
 import 'package:riverpod/riverpod.dart';
 import 'package:health/health.dart';
 
-/// TODO: source name to make sure its from fit
+
 
 Future<int> getAndroidStepCount() async {
   try {
