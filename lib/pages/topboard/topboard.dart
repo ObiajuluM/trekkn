@@ -1,6 +1,7 @@
 import 'package:avatar_plus/avatar_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 
 class TopboardPage extends ConsumerStatefulWidget {
@@ -76,7 +77,8 @@ class _TopboardPageState extends ConsumerState<TopboardPage> {
                                 ),
                               ),
                               title: Text("${ranker.displayname}"),
-                              subtitle: Text("${ranker.totalSteps} steps"),
+                              subtitle: Text(
+                                  "${ranker.totalSteps! >= 1000000 ? compactCurrencyFormat.format(ranker.totalSteps) : currencyFormat.format(ranker.totalSteps)} steps"),
                               trailing: index == 0
                                   ? const Icon(
                                       Icons.star_rounded,
@@ -144,7 +146,8 @@ class _TopboardPageState extends ConsumerState<TopboardPage> {
                                 ),
                               ),
                               title: Text("${ranker.displayname}"),
-                              subtitle: Text("${ranker.totalSteps} steps"),
+                              subtitle: Text(
+                                  "${ranker.totalSteps! >= 1000000 ? compactCurrencyFormat.format(ranker.totalSteps) : currencyFormat.format(ranker.totalSteps)} steps"),
                               trailing: index == 0
                                   ? const Icon(
                                       Icons.star_rounded,
@@ -212,7 +215,8 @@ class _TopboardPageState extends ConsumerState<TopboardPage> {
                                 ),
                               ),
                               title: Text("${ranker.displayname}"),
-                              subtitle: Text("${ranker.totalSteps} steps"),
+                              subtitle: Text(
+                                  "${ranker.totalSteps! >= 1000000 ? compactCurrencyFormat.format(ranker.totalSteps) : currencyFormat.format(ranker.totalSteps)} steps"),
                               trailing: index == 0
                                   ? const Icon(
                                       Icons.star_rounded,

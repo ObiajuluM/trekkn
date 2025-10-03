@@ -141,7 +141,7 @@ class _BalancePageState extends ConsumerState<BalancePage> {
                                   : const Icon(Icons.ac_unit),
                           children: [
                             Text(
-                                "Reward for ${events[index].source} on ${formatDate(events[index].timestamp.toLocal())} \$WKP"),
+                                "Reward for ${events[index].source} on ${formatDate(events[index].timestamp.toLocal())}"),
                           ],
                         );
                       },

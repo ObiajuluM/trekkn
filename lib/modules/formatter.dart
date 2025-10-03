@@ -7,7 +7,8 @@ final compactCurrencyFormat =
     NumberFormat.compactCurrency(symbol: '', decimalDigits: 0);
 
 
-Color colorFromName(String name) {
+Color colorFromName(String name, Brightness brightness) {
+  Color color;
   // Convert name into a hash code
   final hash = name.hashCode;
 
@@ -17,8 +18,22 @@ Color colorFromName(String name) {
   // Create an HSL color (keeps saturation & lightness consistent)
   final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.5, 0.6);
 
+
+
+  if (brightness == Brightness.light) {
+    color = hslColor.toColor();
+    
+  } else {
+color = hslColor.toColor().withValues(alpha: 0.5);
+  }
+
+
   // Convert to a Flutter Color
-  return hslColor.toColor();
+  // if(){
+  //   return hslColor.toColor();
+  
+    return  color;
+  
 }
 
 
