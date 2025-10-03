@@ -226,8 +226,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
 
-          ///
-          /// card for ad
+          /// container for missions
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8),
             height: AppSizing.height(context) * 0.15,
@@ -241,10 +240,10 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             child: ListTile(
               onLongPress: () {
-                print("Long press for theme change");
                 ref.read(themeModeProvider.notifier).changeTheme();
               },
-              onTap: () {
+              onTap: () async {
+                // await getUserMissions();
                 Navigator.push(
                     context,
                     MaterialPageRoute(

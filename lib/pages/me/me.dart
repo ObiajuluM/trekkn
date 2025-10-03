@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/launch_something.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/friends/friends.dart';
@@ -48,10 +49,10 @@ class _MePageState extends ConsumerState<MePage> {
             ),
             child: ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-              onLongPress: () {
-                print("Long press for theme change");
-                ref.read(themeModeProvider.notifier).changeTheme();
-              },
+              // onLongPress: () {
+              //   print("Long press for theme change");
+              //   ref.read(themeModeProvider.notifier).changeTheme();
+              // },
               title: Text("${user.displayname}"),
               subtitle: Text(
                 "${user.email}",
@@ -108,12 +109,14 @@ class _MePageState extends ConsumerState<MePage> {
                       ),
                       child: TweenAnimationBuilder<int>(
                           tween: IntTween(
-                              begin: 0,
-                              end: user.aura), // animate from 0 → 4500
+                              begin: user.aura == null ? null : 0,
+                              end: user.aura ?? 0), // animate from 0 → 4500
                           duration: const Duration(seconds: 1),
                           builder: (context, value, child) {
                             return Text(
-                              value.toString(),
+                              value >= 1000000
+                                  ? compactCurrencyFormat.format(value)
+                                  : currencyFormat.format(value),
                               style: const TextStyle(
                                 fontFamily: "EvilEmpire",
                                 // color: Colors.lightBlueAccent,
@@ -158,13 +161,15 @@ class _MePageState extends ConsumerState<MePage> {
                         ),
                         child: TweenAnimationBuilder<int>(
                             tween: IntTween(
-                                begin: 0,
-                                end: user.level), // animate from 0 → 4500
+                                begin: user.level == null ? null : 0,
+                                end: user.level ?? 0), // animate from 0 → 4500
                             duration: const Duration(seconds: 1),
                             builder: (context, value, child) {
                               return Text(
-                                value
-                                    .toString(), // find way to arrange this maths, max out at 150
+                                value >= 1000000
+                                    ? compactCurrencyFormat.format(value)
+                                    : currencyFormat.format(
+                                        value), // find way to arrange this maths, max out at 150
                                 style: const TextStyle(
                                   fontFamily: "EvilEmpire",
                                   fontSize: 40,
@@ -186,11 +191,11 @@ class _MePageState extends ConsumerState<MePage> {
 
               ///
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FriendsPage()));
+                onTap: () async {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const FriendsPage()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(12),
@@ -215,8 +220,10 @@ class _MePageState extends ConsumerState<MePage> {
                             duration: const Duration(seconds: 0),
                             builder: (context, value, child) {
                               return Text(
-                                value
-                                    .toString(), // find way to arrange this maths, max out at 150
+                                value >= 1000000
+                                    ? compactCurrencyFormat.format(value)
+                                    : currencyFormat.format(
+                                        value), // find way to arrange this maths, max out at 150
                                 style: const TextStyle(
                                   fontFamily: "EvilEmpire",
                                   fontSize: 40,
@@ -255,12 +262,14 @@ class _MePageState extends ConsumerState<MePage> {
                       ),
                       child: TweenAnimationBuilder<int>(
                           tween: IntTween(
-                              begin: 0,
-                              end: user.streak), // animate from 0 → 4500
+                              begin: user.streak == null ? null : 0,
+                              end: user.streak ?? 0), // animate from 0 → 4500
                           duration: const Duration(seconds: 5),
                           builder: (context, value, child) {
                             return Text(
-                              value.toString(),
+                              value >= 1000000
+                                  ? compactCurrencyFormat.format(value)
+                                  : currencyFormat.format(value),
                               style: const TextStyle(
                                 fontFamily: "EvilEmpire",
                                 fontSize: 40,

@@ -197,19 +197,19 @@ class UserMission {
 
 /// ---------------- UserEventLog ----------------
 class UserEventLog {
-  final String id;
-  final String userId;
-  final String eventType;
-  final String description;
-  final DateTime timestamp;
-  final Map<String, dynamic>? metadata;
+  String? id;
+  String? userId;
+  String? eventType;
+  String? description;
+  DateTime? timestamp;
+  Map<String, dynamic>? metadata;
 
   UserEventLog({
-    required this.id,
-    required this.userId,
-    required this.eventType,
-    required this.description,
-    required this.timestamp,
+    this.id,
+    this.userId,
+    this.eventType,
+    this.description,
+    this.timestamp,
     this.metadata,
   });
 
@@ -230,7 +230,7 @@ class UserEventLog {
       "user": userId,
       "event_type": eventType,
       "description": description,
-      "timestamp": timestamp.toIso8601String(),
+      "timestamp": timestamp?.toIso8601String(),
       "metadata": metadata,
     };
   }

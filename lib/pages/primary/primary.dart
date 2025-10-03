@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/balance/balance.dart';
 import 'package:walkit/pages/explore/explore.dart';
@@ -40,6 +41,7 @@ class _PrimaryPageState extends ConsumerState<PrimaryPage> {
     final currentPage = ref.watch(primaryPageIndexProvider);
 
     final user = ref.watch(trekknUserProvider);
+    final balance = user.balance ?? 0;
 
     return Scaffold(
       // change appbar title based on current page
@@ -90,7 +92,9 @@ class _PrimaryPageState extends ConsumerState<PrimaryPage> {
                     width: 24,
                   ),
                   Text(
-                    "${user.balance}",
+                    balance >= 1000000
+                        ? compactCurrencyFormat.format(balance)
+                        : currencyFormat.format(balance),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

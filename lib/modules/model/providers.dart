@@ -43,7 +43,8 @@ Future<List<TrekknUser>?> getLevelLeaderboard() async {
 }
 
 /// timeframe can be "day", "week", "month", "year"
-Future<List<LeaderboardEntry>?> getStepLeaderboard([String timeframe = "day"]) async {
+Future<List<LeaderboardEntry>?> getStepLeaderboard(
+    [String timeframe = "day"]) async {
   try {
     final response = await ApiClient()
         .dio
@@ -53,6 +54,32 @@ Future<List<LeaderboardEntry>?> getStepLeaderboard([String timeframe = "day"]) a
   } catch (e) {
     // Log error and return a default user
     log("Error fetching user: $e");
+    return null;
+  }
+}
+
+///
+Future<List<DailyActivity>?> getUserActivities() async {
+  try {
+    final response = await ApiClient().dio.get("/activities/");
+    final List<dynamic> data = response.data; // access "users" array
+    return data.map((json) => DailyActivity.fromJson(json)).toList();
+  } catch (e) {
+    // Log error and return a default user
+    log("Error fetching activities: $e");
+    return null;
+  }
+}
+
+Future<List<UserMission>?> getUserMissions() async {
+  try {
+    final response = await ApiClient().dio.get("/user-missions/");
+    final List<dynamic> data = response.data; // access "users" array
+
+    return data.map((json) => UserMission.fromJson(json)).toList();
+  } catch (e) {
+    // Log error and return a default user
+    log("Error fetching missions: $e");
     return null;
   }
 }
