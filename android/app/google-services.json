@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "871288827965",
+    "project_id": "walk-it-a2c3b",
+    "storage_bucket": "walk-it-a2c3b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871288827965:android:d031d3e9a17f995f86fa54",
+        "android_client_info": {
+          "package_name": "com.walkitapp.walkit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871288827965-3qrkvupk12lvjhduuvv6nif7rpsuo8al.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkitapp.walkit",
+            "certificate_hash": "6b028e22a318ee29313751345c1f9a2ac874b657"
+          }
+        },
+        {
+          "client_id": "871288827965-fu5qvubuipdrm9kdatq203t450n2s18m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzgMav1DAd80ZBodemg6Hdg9S81pvLzmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871288827965-fu5qvubuipdrm9kdatq203t450n2s18m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "871288827965-2bml28dn6tq5d21gfg75jk91evrr5jn2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.walkitapp.walkit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
