@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walkit/firebase_options.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/background_step_process.dart';
+import 'package:walkit/modules/background/schedule_notiifications.dart';
 import 'package:walkit/pages/landing/landing.dart';
 
 import 'package:walkit/pages/primary/primary.dart';
@@ -18,11 +19,16 @@ import 'package:walkit/themes/theme_provider.dart';
 
 // TODO: create a page to reference all the icons we use
 
-
-// : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS] 
+// : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 Future<void> main() async {
   // flutter binding stuff
   WidgetsFlutterBinding.ensureInitialized();
+
+  // init notifications plugin
+  await initNotifications();
+
+  // schedule the walk reminder once
+  await scheduleDailyWalkReminderOnce();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walkit/modules/background/schedule_notiifications.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
-import 'dart:developer';
-
 import 'package:walkit/pages/missions/components/anime.dart';
+import 'package:walkit/pages/missions/components/schdule_notifications.dart';
 
 class MissionsPage extends ConsumerStatefulWidget {
   const MissionsPage({super.key});
@@ -69,6 +69,26 @@ class _MissionsPageState extends ConsumerState<MissionsPage> {
         title: const Text(
           "Missions",
         ),
+        actions: [
+          Visibility(
+            maintainInteractivity: true,
+            maintainAnimation: true,
+            maintainState: true,
+            maintainSize: true,
+            visible: false,
+            child: IconButton(
+              onPressed: () {},
+              onLongPress: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ScheduledNotificationsPage(
+                      flutterLocalNotificationsPlugin:
+                          flutterLocalNotificationsPlugin);
+                }));
+              },
+              icon: Icon(Icons.abc),
+            ),
+          ),
+        ],
       ),
 
       ///
@@ -103,7 +123,6 @@ class _MissionsPageState extends ConsumerState<MissionsPage> {
                     child: InkWell(
                       // splashColor: Color.fromRGBO(44, 238, 57, 1),
                       onTap: () {
-                        log("message");
                         showMissionDialog(
                           context,
                           name: missions[index].mission.name,

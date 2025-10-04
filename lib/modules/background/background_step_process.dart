@@ -1,12 +1,62 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:isolate';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:walkit/modules/api/backend.dart';
+import 'package:walkit/modules/model/models.dart';
 import 'package:walkit/pages/home/providers/methods.dart';
 
-const channelId = "Walk It Foreground Channel Id";
-const channelName = "Walk It Foreground Service Notification";
+Future<void> rewardAndLogSteps(int steps) async {
+  if (DateTime.now().hour == 23 && steps >= 100) {
+    print("enter 1");
+
+    try {
+      final response = await ApiClient().dio.get("/activities/");
+      final List<dynamic> data = response.data;
+
+      // Convert to model
+      final activities =
+          data.map((json) => DailyActivity.fromJson(json)).toList();
+
+      // Filter only those with source "steps"
+      final stepActivities = activities
+          .where((activity) => activity.source.toLowerCase() == "steps")
+          .toList();
+
+      if (stepActivities.isEmpty) {
+        // show love here too
+        log("No step-based activities found, will have to show love");
+        return null;
+      }
+      // Sort by timestamp (latest first)
+      stepActivities.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+      final lastStepActivity = stepActivities.first;
+
+      // Compare dates (ignoring time)
+      final now = DateTime.now();
+      final isSameDay = lastStepActivity.timestamp.year == now.year &&
+          lastStepActivity.timestamp.month == now.month &&
+          lastStepActivity.timestamp.day == now.day;
+
+      if (!isSameDay) {
+        log("showing love");
+        // show love
+      }
+
+      return null;
+    } catch (e) {
+      log("Error trying to show love: $e");
+      return null;
+    }
+  }
+  return null;
+}
+
+const channelId = "Walk It Channel Id";
+const channelName = "Walk It Service Notification";
 const channelDescription =
-    "This notification appears when the walk it foreground service is running.";
+    "This notification appears when the walk it service is running.";
 
 ///
 class ForegroundTaskService {
