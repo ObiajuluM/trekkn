@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/launch_something.dart';
 import 'package:walkit/modules/model/providers.dart';
-import 'package:walkit/pages/friends/friends.dart';
+
 import 'package:walkit/pages/ranking/ranking.dart';
 import 'package:walkit/pages/settings/settings.dart';
-import 'package:walkit/themes/theme_provider.dart';
+
 import 'package:avatar_plus/avatar_plus.dart';
 
 class MePage extends ConsumerStatefulWidget {

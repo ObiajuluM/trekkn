@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/global/components/typewriter.dart';
 import 'package:walkit/misc/appsizing.dart';
 import 'package:walkit/modules/api/backend.dart';
@@ -255,15 +256,19 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                 googleFitAvailable == true
             ? () {
                 try {
-                  // validate if permission has been granted before pushing screen
-                  requestStepPermission().then((value) async {
-                    // save tokens to activate stream
-                    if (value) {
-                      if (!context.mounted) return;
-                      await ApiClient().saveTokens(
-                        widget.response!.data["access"],
-                        widget.response!.data["refresh"],
-                      );
+                  Permission.activityRecognition.request().then((value) {
+                    // validate if permission has been granted before pushing screen
+                    if (value.isGranted && context.mounted) {
+                      requestStepPermission().then((value) async {
+                        // save tokens to activate stream
+                        if (value) {
+                          if (!context.mounted) return;
+                          await ApiClient().saveTokens(
+                            widget.response!.data["access"],
+                            widget.response!.data["refresh"],
+                          );
+                        }
+                      });
                     }
                   });
                 } catch (e) {

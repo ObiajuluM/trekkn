@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,7 +56,6 @@ class _BackgroundPermissionPageState
                 "Permit me to track your steps in the background, even if the app is closed.",
             style: TextStyle(fontSize: 24),
             onComplete: () {
-              
               setState(() {
                 doneCapping = true;
               });
@@ -94,7 +95,8 @@ class _BackgroundPermissionPageState
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StepPermissionPage(widget.response)));
+                                builder: (context) =>
+                                    StepPermissionPage(widget.response)));
                       }
                     });
                   }

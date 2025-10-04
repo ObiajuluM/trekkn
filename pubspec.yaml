@@ -31,6 +31,7 @@ dependencies:
   internet_connection_checker_plus: ^2.9.0
   share_plus: ^12.0.0
   app_links: ^6.4.1  # https://pub.dev/packages/app_links
+  flutter_foreground_task: ^9.1.0
   
 
 

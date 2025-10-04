@@ -28,24 +28,21 @@ class _ChallengesPageState extends ConsumerState<ChallengesPage> {
         padding: const EdgeInsets.all(12),
         children: [
           // daily check in
-          Container(
-            // padding: const EdgeInsets.all(12),
-            child: GridView.count(
-              // padding: EdgeInsets.all(),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
-              childAspectRatio: 1,
-              children: [
-                Card(),
-                Card(),
-                Card(),
-                Card(),
-                Card(),
-                Card(),
-                Card(),
-              ],
-            ),
+          GridView.count(
+            // padding: EdgeInsets.all(),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            childAspectRatio: 1,
+            children: [
+              Card(),
+              Card(),
+              Card(),
+              Card(),
+              Card(),
+              Card(),
+              Card(),
+            ],
           ),
 
           /// ads
@@ -71,10 +68,10 @@ class _ChallengesPageState extends ConsumerState<ChallengesPage> {
 
           /// List of active challenges
           Container(
-            child: Text("List of active challenges"),
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(12)),
+            child: Text("List of active challenges"),
           ),
         ],
       ),

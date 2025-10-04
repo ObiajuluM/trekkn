@@ -32,7 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final stepCount = ref.watch(stepCountProvider);
     final user = ref.watch(trekknUserProvider);
-    final goal = user.goal ?? 1000;
+    // final goal = user.goal ?? 1000;
 
     ///
     return Scaffold(

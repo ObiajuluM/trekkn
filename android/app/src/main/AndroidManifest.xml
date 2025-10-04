@@ -11,6 +11,17 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
 
+    <!-- Android 14 -->
+    <!-- required -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+
+
+    <!-- foregroundServiceType: health and datasync-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
 
     <application android:label="Walk It" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
@@ -25,10 +36,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
+
+
             <!-- Intention to show Permissions screen for Health Connect API -->
             <intent-filter>
                 <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
+
 
 
             <!-- for handling invite... -->
@@ -71,6 +85,8 @@
 
 
 
+        <!-- Warning: Do not change service name. -->
+        <service android:name="com.pravera.flutter_foreground_task.service.ForegroundService" android:foregroundServiceType="dataSync|health" android:exported="false" />
 
 
 

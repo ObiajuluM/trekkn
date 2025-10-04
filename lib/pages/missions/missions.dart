@@ -14,6 +14,53 @@ class MissionsPage extends ConsumerStatefulWidget {
 }
 
 class _MissionsPageState extends ConsumerState<MissionsPage> {
+  void showMissionDialog(
+    BuildContext context, {
+    required String name,
+    required String description,
+    required int requirementSteps,
+    required bool isCompleted,
+    required int auraReward,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Text(
+            name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(description),
+              const SizedBox(height: 12),
+              Text("Steps Required: $requirementSteps"),
+              Text("Aura Reward: $auraReward"),
+            ],
+          ),
+          actions: [
+            ///
+            if (isCompleted) DrawnCheck(),
+
+            ///
+            // IconButton(
+            //   onPressed: () => Navigator.of(context).pop(),
+            //   icon: Icon(
+            //     Icons.close,
+            //     color: Colors.red.shade900,
+            //   ),
+            // ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,55 +148,10 @@ class _MissionsPageState extends ConsumerState<MissionsPage> {
                 },
               );
             }
-            return Container();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }),
     );
   }
-}
-
-void showMissionDialog(
-  BuildContext context, {
-  required String name,
-  required String description,
-  required int requirementSteps,
-  required bool isCompleted,
-  required int auraReward,
-}) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Text(
-          name,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(description),
-            const SizedBox(height: 12),
-            Text("Steps Required: $requirementSteps"),
-            Text("Aura Reward: $auraReward"),
-          ],
-        ),
-        actions: [
-          ///
-          if (isCompleted) DrawnCheck(),
-
-          ///
-          // IconButton(
-          //   onPressed: () => Navigator.of(context).pop(),
-          //   icon: Icon(
-          //     Icons.close,
-          //     color: Colors.red.shade900,
-          //   ),
-          // ),
-        ],
-      );
-    },
-  );
 }

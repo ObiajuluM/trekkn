@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:walkit/firebase_options.dart';
 import 'package:walkit/modules/api/backend.dart';
+import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/pages/landing/landing.dart';
 
 import 'package:walkit/pages/primary/primary.dart';
@@ -15,6 +17,9 @@ import 'package:walkit/themes/light.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
 // TODO: create a page to reference all the icons we use
+
+
+// : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS] 
 Future<void> main() async {
   // flutter binding stuff
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +29,12 @@ Future<void> main() async {
   // awaiting seems safe
   await ApiClient().streamAccessToken();
 
-  //
+  // background stuff
+  if (await FlutterForegroundTask.isRunningService == false) {
+    ForegroundTaskService.init();
+    //
+    startService();
+  }
 
   // force portrait
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -113,7 +123,6 @@ class _MainAppState extends ConsumerState<MainApp> {
           },
         ),
         builder: (context, snapshot) {
-          
           if (snapshot.hasData) {
             return PrimaryPage();
           }
