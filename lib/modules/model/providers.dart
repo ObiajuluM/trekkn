@@ -29,6 +29,20 @@ Future<TrekknUser?> patchUser(Map<String, dynamic> data) async {
   }
 }
 
+///
+Future<List<DailyActivity>?> setDailySteps(int steps) async {
+  try {
+    final response =
+        await ApiClient().dio.post("/activities/", data: {"steps": steps});
+    final List<dynamic> data = response.data; // access "users" array
+    return data.map((json) => DailyActivity.fromJson(json)).toList();
+  } catch (e) {
+    // Log error and return a default user
+    log("Error settiing step data and fetching activities: $e");
+    return null;
+  }
+}
+
 Future<List<TrekknUser>?> getLevelLeaderboard() async {
   try {
     final response =

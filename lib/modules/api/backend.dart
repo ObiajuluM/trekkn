@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:async';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:walkit/modules/model/models.dart';
 
 /// Singleton class for API integration
 class ApiClient {

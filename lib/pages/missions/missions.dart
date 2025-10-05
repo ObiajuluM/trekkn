@@ -114,7 +114,7 @@ class _MissionsPageState extends ConsumerState<MissionsPage> {
                     margin: const EdgeInsets.all(2),
                     color: missions[index].isCompleted == true
                         ? colorFromName(
-                            missions[index].mission.id,
+                            missions[index].mission.name,
                             Theme.of(context).brightness,
                           )
                         : Colors.grey.shade200.withValues(alpha: 0.5),

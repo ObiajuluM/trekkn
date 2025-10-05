@@ -3,12 +3,14 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/global/components/typewriter.dart';
 import 'package:walkit/misc/appsizing.dart';
 import 'package:walkit/modules/api/backend.dart';
+import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/launch_something.dart';
 
 import 'package:walkit/pages/home/providers/methods.dart';
@@ -260,8 +262,18 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                     // validate if permission has been granted before pushing screen
                     if (value.isGranted && context.mounted) {
                       requestStepPermission().then((value) async {
-                        // save tokens to activate stream
                         if (value) {
+                          // conditional start foreground task service to show steps notification
+                          FlutterForegroundTask.isRunningService.then((value) {
+                            if (value == false) {
+                              ForegroundTaskService.init();
+                              //
+                              startService();
+                            }
+                          });
+
+                          //
+                          // save tokens to activate stream
                           if (!context.mounted) return;
                           await ApiClient().saveTokens(
                             widget.response!.data["access"],

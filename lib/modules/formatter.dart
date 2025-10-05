@@ -5,7 +5,6 @@ final currencyFormat = NumberFormat.currency(symbol: '', decimalDigits: 0);
 final compactCurrencyFormat =
     NumberFormat.compactCurrency(symbol: '', decimalDigits: 0);
 
-
 Color colorFromName(String name, Brightness brightness) {
   Color color;
   // Convert name into a hash code
@@ -17,52 +16,46 @@ Color colorFromName(String name, Brightness brightness) {
   // Create an HSL color (keeps saturation & lightness consistent)
   final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.5, 0.6);
 
-
-
+  // Convert to a Flutter Color
   if (brightness == Brightness.light) {
     color = hslColor.toColor();
-    
   } else {
-color = hslColor.toColor().withValues(alpha: 0.5);
+    color = hslColor.toColor().withValues(alpha: 0.5);
   }
 
-
-  // Convert to a Flutter Color
-  // if(){
-  //   return hslColor.toColor();
-  
-    return  color;
-  
+  return color;
 }
 
-
-
 String formatDate(DateTime date) {
-  // Get weekday + month + day
-  String weekday = DateFormat('EEEE').format(date); // Monday
-  String month = DateFormat('MMMM').format(date); // October
-  int day = date.day;
-  int year = date.year;
+  try {
+    // Get weekday + month + day
+    String weekday = DateFormat('EEEE').format(date); // Monday
+    String month = DateFormat('MMMM').format(date); // October
+    int day = date.day;
+    int year = date.year;
 
-  // Add ordinal suffix (st, nd, rd, th)
-  String suffix;
-  if (day >= 11 && day <= 13) {
-    suffix = 'th';
-  } else {
-    switch (day % 10) {
-      case 1:
-        suffix = 'st';
-        break;
-      case 2:
-        suffix = 'nd';
-        break;
-      case 3:
-        suffix = 'rd';
-        break;
-      default:
-        suffix = 'th';
+    // Add ordinal suffix (st, nd, rd, th)
+    String suffix;
+    if (day >= 11 && day <= 13) {
+      suffix = 'th';
+    } else {
+      switch (day % 10) {
+        case 1:
+          suffix = 'st';
+          break;
+        case 2:
+          suffix = 'nd';
+          break;
+        case 3:
+          suffix = 'rd';
+          break;
+        default:
+          suffix = 'th';
+      }
     }
-  }
 
-  return "$weekday $day$suffix $month $year";
+    return "$weekday $day$suffix $month $year";
+  } catch (e) {
+    return DateFormat.yMMMMd().format(DateTime.now());
+  }
 }

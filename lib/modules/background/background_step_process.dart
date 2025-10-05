@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:isolate';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:walkit/modules/api/backend.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/models.dart';
+import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/home/providers/methods.dart';
 
 Future<void> rewardAndLogSteps(int steps) async {
-  if (DateTime.now().hour == 23 && steps >= 100) {
-    print("enter 1");
+  if (DateTime.now().hour == 23
+      //  &&
+      // steps >= 100
+      ) {
+    log("enter 1");
 
     try {
       final response = await ApiClient().dio.get("/activities/");
@@ -26,7 +30,9 @@ Future<void> rewardAndLogSteps(int steps) async {
       if (stepActivities.isEmpty) {
         // show love here too
         log("No step-based activities found, will have to show love");
-        return null;
+        final showLove = await setDailySteps(steps);
+        log(showLove.toString());
+        // return null;
       }
       // Sort by timestamp (latest first)
       stepActivities.sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -41,6 +47,8 @@ Future<void> rewardAndLogSteps(int steps) async {
 
       if (!isSameDay) {
         log("showing love");
+        final showLove = await setDailySteps(steps);
+        log(showLove.toString());
         // show love
       }
 
@@ -75,7 +83,7 @@ class ForegroundTaskService {
       ),
       foregroundTaskOptions: ForegroundTaskOptions(
         eventAction: ForegroundTaskEventAction.repeat(
-          const Duration(
+          Duration(
             minutes: 15,
           ).inMilliseconds,
         ),
@@ -95,19 +103,35 @@ void startCallback() {
   FlutterForegroundTask.setTaskHandler(MyTaskHandler());
 }
 
-// void startService() async {
 void startService() async {
-  // final healthSteps = await getBackgroundStepCount();
-  final healthSteps = await getAndroidStepCount();
-  if (await FlutterForegroundTask.isRunningService) {
-    FlutterForegroundTask.restartService();
+  try {
+    // final healthSteps = await getBackgroundStepCount();
+    final healthSteps = await getAndroidStepCount();
+
+    if (await FlutterForegroundTask.isRunningService) {
+      FlutterForegroundTask.restartService();
+    } else {
+      // show step notification
+      FlutterForegroundTask.startService(
+        notificationTitle:
+            "${healthSteps >= 1000000 ? compactCurrencyFormat.format(healthSteps) : currencyFormat.format(healthSteps)} steps today",
+        notificationText: "",
+        callback:
+            startCallback, // Function imported from ForegroundService.dart
+      );
+    }
+  } catch (e) {
+    log("error during start service $e");
+  }
+}
+
+void stopService() async {
+  bool isRunning = await FlutterForegroundTask.isRunningService;
+  if (isRunning) {
+    await FlutterForegroundTask.stopService();
+    print("Foreground task stopped.");
   } else {
-    // show step notification
-    FlutterForegroundTask.startService(
-      notificationTitle: "$healthSteps steps today",
-      notificationText: "",
-      callback: startCallback, // Function imported from ForegroundService.dart
-    );
+    print("No foreground task running.");
   }
 }
 
@@ -121,18 +145,19 @@ class MyTaskHandler extends TaskHandler {
     // get steps
     final healthSteps = await getAndroidStepCount();
 
-    // await rewardAndLogSteps(healthSteps);
-
     // set initial step notification
     FlutterForegroundTask.startService(
-      notificationTitle: "$healthSteps steps today",
+      notificationTitle:
+          "${healthSteps >= 1000000 ? compactCurrencyFormat.format(healthSteps) : currencyFormat.format(healthSteps)} steps today",
       serviceTypes: [
-        ForegroundServiceTypes.health,
-        ForegroundServiceTypes.dataSync,
+        // ForegroundServiceTypes.health,
+        // ForegroundServiceTypes.dataSync,
       ],
       notificationText: "",
       callback: startCallback, // Function imported from ForegroundService.dart
     );
+    // show love
+    await rewardAndLogSteps(healthSteps);
   }
 
   // Called based on the eventAction set in ForegroundTaskOptions.
@@ -141,14 +166,15 @@ class MyTaskHandler extends TaskHandler {
     log("object  repeated ${timestamp}");
     final healthSteps = await getAndroidStepCount();
 
-    // await rewardAndLogSteps(healthSteps);
-
     // update step notification
     FlutterForegroundTask.updateService(
       // notificationTitle: "${await getBackgroundStepCount()} steps today",
-      notificationTitle: "$healthSteps steps today",
+      notificationTitle:
+          "${healthSteps >= 1000000 ? compactCurrencyFormat.format(healthSteps) : currencyFormat.format(healthSteps)} steps today",
       notificationText: "",
     );
+    // show love
+    await rewardAndLogSteps(healthSteps);
   }
 
   // Called when the task is destroyed.

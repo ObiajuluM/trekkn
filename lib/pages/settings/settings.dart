@@ -5,6 +5,7 @@ import 'package:health/health.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/auth/google_auth.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/landing/landing.dart';
 import 'package:walkit/themes/theme_provider.dart';
@@ -23,6 +24,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   var notify = false;
   var step = false;
   var back = false;
+  var walletState = false;
 
   @override
   void initState() {
@@ -125,11 +127,20 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
                   onTap: () {
-                    print("copy address");
+                    setState(() {
+                      walletState = !walletState;
+                    });
                   },
-                  title: Text("Wallet Address"),
+                  title: Text("Wallets"),
+                  //   slicing to display the first 4 and last 5 characters of the wallet address.
                   trailing: Text(
-                    "0xdF072...31a00443e8",
+                    walletState
+                        ? (user.evmAddr != null && user.evmAddr!.length >= 9
+                            ? "${user.evmAddr!.substring(0, 4)}...${user.evmAddr!.substring(user.evmAddr!.length - 5)}"
+                            : user.evmAddr ?? "")
+                        : (user.solAddr != null && user.solAddr!.length >= 9
+                            ? "${user.solAddr!.substring(0, 4)}...${user.solAddr!.substring(user.solAddr!.length - 5)}"
+                            : user.solAddr ?? ""),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -141,7 +152,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   },
                   title: Text("User Since"),
                   trailing: Text(
-                    "${user.dateJoined}",
+                    formatDate(
+                      DateTime.parse(
+                          user.dateJoined ?? DateTime.now().toString()),
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

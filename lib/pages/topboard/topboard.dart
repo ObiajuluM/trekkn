@@ -24,7 +24,8 @@ class _TopboardPageState extends ConsumerState<TopboardPage> {
           bottom: const TabBar(
             dividerColor: Colors.transparent,
             tabs: [
-              Tab(child: Text("Yesterday")),
+              // TODO too lazy to fix the timezone stuff, issue wiith inconsistent date
+              Tab(child: Text("Recent")),
               Tab(child: Text("Week")),
               Tab(child: Text("Month")),
             ],

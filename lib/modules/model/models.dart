@@ -13,6 +13,8 @@ class TrekknUser {
   String? inviteUrl;
   String? invitedBy;
   String? dateJoined;
+  String? solAddr;
+  String? evmAddr;
 
   TrekknUser({
     this.id,
@@ -28,6 +30,8 @@ class TrekknUser {
     this.dateJoined,
     this.inviteUrl,
     this.invitedBy,
+    this.solAddr,
+    this.evmAddr,
   });
 
   factory TrekknUser.fromJson(Map<String, dynamic> json) {
@@ -45,6 +49,8 @@ class TrekknUser {
       inviteUrl: json['invite_url'],
       invitedBy: json['invited_by'],
       dateJoined: json['date_joined'],
+      solAddr: json["sol_addr"],
+      evmAddr: json["evm_addr"],
     );
   }
 
@@ -63,6 +69,8 @@ class TrekknUser {
       "invite_url": inviteUrl,
       "invited_by": invitedBy,
       "dateJoined": dateJoined,
+      "sol_addr": solAddr,
+      "evm_addr": evmAddr,
     };
   }
 }

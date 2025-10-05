@@ -2,9 +2,11 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/global/components/typewriter.dart';
+import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/pages/permissions/location.dart';
 import 'package:walkit/pages/permissions/step.dart';
 
@@ -92,6 +94,17 @@ class _BackgroundPermissionPageState
                   if (value.isGranted && context.mounted) {
                     Permission.scheduleExactAlarm.request().then((value) {
                       if (value.isGranted && context.mounted) {
+                        // conditional start foreground task stuff
+                        // FlutterForegroundTask.isRunningService.then((value) {
+                        //   if (value == false) {
+                        //     ForegroundTaskService.init();
+                        //     //
+                        //     startService();
+                        //   }
+                        // });
+
+                        ///
+                        if (!context.mounted) return;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
