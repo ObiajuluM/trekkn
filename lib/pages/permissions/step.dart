@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/global/components/typewriter.dart';
-import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/global/components/appsizing.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/launch_something.dart';

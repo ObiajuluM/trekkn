@@ -14,14 +14,16 @@ clean:
 	flutter clean
 	flutter pub get
 
+# install production flavor
 installp:
 	flutter clean
 	flutter pub get
-	flutter build apk --flavor production
-	flutter install --flavor production
+	flutter build apk --flavor prod --target lib/main.dart
+	flutter install --flavor prod
 
 install:
 	flutter clean
 	flutter pub get
-	flutter build apk 
-	flutter install 
+	flutter build apk --flavor dev --target lib/main_dev.dart
+	flutter install --flavor dev 
+

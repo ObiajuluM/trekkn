@@ -1,48 +1,83 @@
 package com.walkitapp.walkit
 
-
 import android.app.Activity
-import android.graphics.Typeface
+import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.FrameLayout
 
 class PrivacyPolicyActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Detect if system is in dark mode
+        val isDarkMode =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+        // Define colors depending on theme
+        val backgroundColor = if (isDarkMode) Color.BLACK else Color.WHITE
+        val primaryTextColor = if (isDarkMode) Color.WHITE else Color.BLACK
+        val secondaryTextColor = if (isDarkMode) Color.LTGRAY else Color.DKGRAY
+        val appBarColor = if (isDarkMode) Color.parseColor("#222222") else Color.parseColor("#00ee3bff")
+
         // Root container
         val rootLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            
+            setBackgroundColor(backgroundColor)
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
         }
 
-        // "App Bar"
+        // App Bar
         val appBar = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
-            setBackgroundColor(Color.parseColor("#00ee3bff")) // Purple like Material default
-            setPadding(32, 32, 32, 32) // top padding for status bar area
+            setBackgroundColor(appBarColor)
+            setPadding(48, 96, 48, 48)
+            elevation = 8f
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
 
         val appBarTitle = TextView(this).apply {
             text = "Privacy Policy"
-            textSize = 20f
-            setTypeface(null, Typeface.BOLD)            
+            textSize = 22f
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(if (isDarkMode) Color.WHITE else Color.BLACK)
             gravity = Gravity.CENTER_VERTICAL
         }
+
         appBar.addView(appBarTitle)
         rootLayout.addView(appBar)
 
         // Scrollable content
-        val scrollView = ScrollView(this)
+        val scrollView = ScrollView(this).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        }
+
         val container = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(48, 48, 48, 48)
+            setPadding(64, 48, 64, 96)
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
+
         scrollView.addView(container)
 
         // Helper function to add sections
@@ -51,17 +86,18 @@ class PrivacyPolicyActivity : Activity() {
                 text = header
                 textSize = 18f
                 setTypeface(null, Typeface.BOLD)
-                setPadding(0, 16, 0, 8)
-                setTextColor(Color.BLACK)
+                setPadding(0, 24, 0, 8)
+                setTextColor(primaryTextColor)
             }
-            container.addView(headerView)
 
             val bodyView = TextView(this).apply {
                 text = body
                 textSize = 16f
-                setLineSpacing(4f, 1.2f)
-                setTextColor(Color.DKGRAY)
+                setLineSpacing(6f, 1.3f)
+                setTextColor(secondaryTextColor)
             }
+
+            container.addView(headerView)
             container.addView(bodyView)
         }
 
@@ -87,12 +123,10 @@ class PrivacyPolicyActivity : Activity() {
 
         addSection(
             "4. Contact",
-            "If you have any questions, please reach out to us at hi@walkitapp.com."
+            "If you have any questions, please reach out to us at gm@walkitapp.com."
         )
 
         rootLayout.addView(scrollView)
-
-        // Final set content
         setContentView(rootLayout)
     }
 }

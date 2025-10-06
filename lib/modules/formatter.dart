@@ -26,15 +26,48 @@ Color colorFromName(String name, Brightness brightness) {
   return color;
 }
 
+// String formatDate(DateTime date) {
+//   try {
+//     // Get weekday + month + day
+//     String weekday = DateFormat('EEEE').format(date); // Monday
+//     String month = DateFormat('MMMM').format(date); // October
+//     int day = date.day;
+//     int year = date.year;
+
+//     // Add ordinal suffix (st, nd, rd, th)
+//     String suffix;
+//     if (day >= 11 && day <= 13) {
+//       suffix = 'th';
+//     } else {
+//       switch (day % 10) {
+//         case 1:
+//           suffix = 'st';
+//           break;
+//         case 2:
+//           suffix = 'nd';
+//           break;
+//         case 3:
+//           suffix = 'rd';
+//           break;
+//         default:
+//           suffix = 'th';
+//       }
+//     }
+
+//     return "$weekday $day$suffix $month $year";
+//   } catch (e) {
+//     return DateFormat.yMMMMd().format(DateTime.now());
+//   }
+// }
+
 String formatDate(DateTime date) {
   try {
-    // Get weekday + month + day
-    String weekday = DateFormat('EEEE').format(date); // Monday
-    String month = DateFormat('MMMM').format(date); // October
-    int day = date.day;
-    int year = date.year;
+    final localDate = date.toLocal(); // Convert to local timezone
+    String weekday = DateFormat('EEEE').format(localDate);
+    String month = DateFormat('MMMM').format(localDate);
+    int day = localDate.day;
+    int year = localDate.year;
 
-    // Add ordinal suffix (st, nd, rd, th)
     String suffix;
     if (day >= 11 && day <= 13) {
       suffix = 'th';
@@ -56,6 +89,6 @@ String formatDate(DateTime date) {
 
     return "$weekday $day$suffix $month $year";
   } catch (e) {
-    return DateFormat.yMMMMd().format(DateTime.now());
+    return DateFormat.yMMMMd().format(DateTime.now().toLocal());
   }
 }

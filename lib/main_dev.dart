@@ -29,13 +29,13 @@ Future<void> main() async {
 
   //  do flavors for developement
   FlavorConfig(
-    flavor: Flavor.prod,
-    googleClientId:
-        "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
-    baseUrl: "https://api.walkitapp.com/",
+    flavor: Flavor.dev,
+    // baseUrl: "https://api.walkitapp.com",
+    googleClientId: "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+    baseUrl: "http://192.168.1.61:8000/",
   );
 
-  // init notifications plugin
+  // init notifications plugin for scheduled notifications
   await initNotifications();
 
   // schedule the walk reminder once
@@ -100,6 +100,8 @@ class _MainAppState extends ConsumerState<MainApp> {
     return MaterialApp(
       theme: lightTheme,
       darkTheme: darkTheme,
+
+      color: Colors.orange,
       // themeMode: ThemeMode.light,
       themeMode: ref.watch(themeModeProvider),
 

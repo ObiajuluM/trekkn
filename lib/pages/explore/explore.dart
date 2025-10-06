@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/global/components/appsizing.dart';
 import 'package:walkit/pages/THE%20FOLDERS%20HERE%20SHOULD%20BE%20IN%20PAGES/booststep/booststep.dart';
 import 'package:walkit/pages/THE%20FOLDERS%20HERE%20SHOULD%20BE%20IN%20PAGES/challenge/challenge.dart';
 import 'package:walkit/pages/THE%20FOLDERS%20HERE%20SHOULD%20BE%20IN%20PAGES/multiplier/multiplier.dart';

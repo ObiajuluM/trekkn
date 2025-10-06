@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/global/components/appsizing.dart';
 
 import 'package:walkit/modules/model/providers.dart';
 

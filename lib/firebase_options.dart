@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '871288827965',
     projectId: 'walk-it-a2c3b',
     storageBucket: 'walk-it-a2c3b.firebasestorage.app',
-    androidClientId: '871288827965-3qrkvupk12lvjhduuvv6nif7rpsuo8al.apps.googleusercontent.com',
+    androidClientId: '871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com',
     iosClientId: '871288827965-2bml28dn6tq5d21gfg75jk91evrr5jn2.apps.googleusercontent.com',
     iosBundleId: 'com.walkitapp.walkit',
   );

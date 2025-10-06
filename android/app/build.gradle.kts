@@ -1,3 +1,7 @@
+//  for release
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -7,6 +11,16 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+// for release
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
+
+// 
 
 android {
     namespace = "com.walkitapp.walkit"
@@ -40,11 +54,36 @@ android {
     
     }
 
+//  for release
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
+
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    flavorDimensions += "default"
+    productFlavors{
+        create("prod"){
+            dimension = "default"
+            resValue(type="string", name="app_name", value="Walk It")
+        }
+        create("dev"){
+            dimension = "default"
+            resValue(type="string", name="app_name", value="Walk It.dev")
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
         }
     }
 }

@@ -95,6 +95,10 @@ class _BalancePageState extends ConsumerState<BalancePage> {
             ),
           ),
 
+          SizedBox(
+            height: 1,
+          ),
+
           ///
           Container(
             clipBehavior: Clip.hardEdge,

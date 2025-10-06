@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:async';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:walkit/global/flavor/config.dart';
 
 /// Singleton class for API integration
 class ApiClient {
@@ -28,7 +29,8 @@ class ApiClient {
   //   },
   // );
 
-  static const String baseUrl = "http://192.168.1.61:8000/"; // your Django API
+  static String baseUrl = FlavorConfig.instance.baseUrl;
+  // your Django API
   static const String accessTokenKey = "access_token";
   static const String refreshTokenKey = "refresh_token";
 

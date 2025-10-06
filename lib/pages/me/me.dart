@@ -363,6 +363,23 @@ class _MePageState extends ConsumerState<MePage> {
               ///
               ElevatedButton(
                 onPressed: () {
+                  // TODO: add discord link
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => SettingsPage(),
+                  //   ),
+                  // );
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                ),
+                child: Icon(
+                  Icons.discord,
+                  color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => SettingsPage(),

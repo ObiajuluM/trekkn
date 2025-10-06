@@ -14,11 +14,55 @@
       },
       "oauth_client": [
         {
-          "client_id": "871288827965-3qrkvupk12lvjhduuvv6nif7rpsuo8al.apps.googleusercontent.com",
+          "client_id": "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.walkitapp.walkit",
-            "certificate_hash": "6b028e22a318ee29313751345c1f9a2ac874b657"
+            "certificate_hash": "58acf84f0eb8550ed459c5d1985c1d716e8779b4"
+          }
+        },
+        {
+          "client_id": "871288827965-fu5qvubuipdrm9kdatq203t450n2s18m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzgMav1DAd80ZBodemg6Hdg9S81pvLzmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871288827965-fu5qvubuipdrm9kdatq203t450n2s18m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "871288827965-2bml28dn6tq5d21gfg75jk91evrr5jn2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.walkitapp.walkit"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871288827965:android:6998de16636ba6dd86fa54",
+        "android_client_info": {
+          "package_name": "com.walkitapp.walkit.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871288827965-uch2gd27cbb0p0hvk1pilbleblla5k7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkitapp.walkit.dev",
+            "certificate_hash": "58acf84f0eb8550ed459c5d1985c1d716e8779b4"
           }
         },
         {

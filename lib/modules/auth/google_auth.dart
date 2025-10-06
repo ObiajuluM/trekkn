@@ -1,6 +1,8 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:developer';
 
+import 'package:walkit/global/flavor/config.dart';
+
 Future<String?> signInWithGoogle() async {
   try {
     // create instance
@@ -8,8 +10,7 @@ Future<String?> signInWithGoogle() async {
 
     // Initialize GoogleSignIn with required scopes
     await googleSignIn.initialize(
-        clientId:
-            "871288827965-3qrkvupk12lvjhduuvv6nif7rpsuo8al.apps.googleusercontent.com",
+        clientId: FlavorConfig.instance.googleClientId,
         serverClientId:
             "871288827965-fu5qvubuipdrm9kdatq203t450n2s18m.apps.googleusercontent.com");
 

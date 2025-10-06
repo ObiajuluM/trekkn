@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/global/components/appsizing.dart';
 
 class ChallengesPage extends ConsumerStatefulWidget {
   const ChallengesPage({super.key});

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:walkit/misc/appsizing.dart';
+import 'package:walkit/global/components/appsizing.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/auth/google_auth.dart';
 import 'package:walkit/modules/device_id.dart';

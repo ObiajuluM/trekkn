@@ -24,7 +24,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   var notify = false;
   var step = false;
   var back = false;
-  var walletState = false;
+  // tracks the current visible wallet
+  var walletState = true;
 
   @override
   void initState() {
@@ -136,10 +137,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   trailing: Text(
                     walletState
                         ? (user.evmAddr != null && user.evmAddr!.length >= 9
-                            ? "${user.evmAddr!.substring(0, 4)}...${user.evmAddr!.substring(user.evmAddr!.length - 5)}"
+                            ? "${user.evmAddr!.substring(0, 6)}...${user.evmAddr!.substring(user.evmAddr!.length - 5)}"
                             : user.evmAddr ?? "")
                         : (user.solAddr != null && user.solAddr!.length >= 9
-                            ? "${user.solAddr!.substring(0, 4)}...${user.solAddr!.substring(user.solAddr!.length - 5)}"
+                            ? "${user.solAddr!.substring(0, 6)}...${user.solAddr!.substring(user.solAddr!.length - 5)}"
                             : user.solAddr ?? ""),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -212,13 +213,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   onTap: openPrivacyPolicy,
                   title: Text("Privacy Policy"),
                 ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  onTap: () {
-                    // opens google page
-                  },
-                  title: Text("Issue Report"),
-                ),
+                // ListTile(
+                //   contentPadding: EdgeInsets.all(0),
+                //   onTap: () {
+                //     // opens google page
+                //   },
+                //   title: Text("Issue Report"),
+                // ),
 
                 ///
                 ListTile(
