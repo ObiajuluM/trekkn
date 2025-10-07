@@ -210,6 +210,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
+                  onTap: () {
+                    // push to license page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LicensePage(),
+                      ),
+                    );
+                  },
+                  title: Text("Licenses"),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
                   onTap: openPrivacyPolicy,
                   title: Text("Privacy Policy"),
                 ),

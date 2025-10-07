@@ -1,20 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:walkit/firebase_options.dart';
 import 'package:walkit/global/flavor/config.dart';
+import 'package:walkit/licenses.dart';
 import 'package:walkit/modules/api/backend.dart';
-import 'package:walkit/modules/background/background_step_process.dart';
-
 import 'package:walkit/modules/background/schedule_notiifications.dart';
+import 'package:walkit/pages/game/game.dart';
 import 'package:walkit/pages/landing/landing.dart';
-
 import 'package:walkit/pages/primary/primary.dart';
 import 'package:walkit/themes/dark.dart';
 import 'package:walkit/themes/light.dart';
@@ -23,6 +20,8 @@ import 'package:walkit/themes/theme_provider.dart';
 // TODO: create a page to reference all the icons we use
 
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   // flutter binding stuff
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +30,13 @@ Future<void> main() async {
   FlavorConfig(
     flavor: Flavor.dev,
     // baseUrl: "https://api.walkitapp.com",
-    googleClientId: "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+    googleClientId:
+        "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
     baseUrl: "http://192.168.1.61:8000/",
   );
+
+  //
+  licenses;
 
   // init notifications plugin for scheduled notifications
   await initNotifications();
@@ -70,6 +73,8 @@ class MainApp extends ConsumerStatefulWidget {
 }
 
 class _MainAppState extends ConsumerState<MainApp> {
+  //
+
   // load the preferred theme on startup
   loadPreferredThemeOnStartup() {
     SharedPreferences.getInstance().then((prefs) {
@@ -98,10 +103,10 @@ class _MainAppState extends ConsumerState<MainApp> {
 
     ///
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: lightTheme,
       darkTheme: darkTheme,
 
-      color: Colors.orange,
       // themeMode: ThemeMode.light,
       themeMode: ref.watch(themeModeProvider),
 
@@ -112,21 +117,7 @@ class _MainAppState extends ConsumerState<MainApp> {
           builder: (context, snapshot) {
             final isConnected = snapshot.data == InternetStatus.connected;
             if (!isConnected) {
-              return const Scaffold(
-                body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.wifi_off, size: 64, color: Colors.red),
-                      SizedBox(height: 16),
-                      Text(
-                        'No Connection To Server',
-                        style: TextStyle(fontSize: 20, color: Colors.red),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return GamePage();
             }
             return child!;
           },

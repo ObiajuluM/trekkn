@@ -9,10 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:walkit/firebase_options.dart';
 import 'package:walkit/global/flavor/config.dart';
+import 'package:walkit/licenses.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/background_step_process.dart';
 
 import 'package:walkit/modules/background/schedule_notiifications.dart';
+import 'package:walkit/pages/game/game.dart';
 import 'package:walkit/pages/landing/landing.dart';
 
 import 'package:walkit/pages/primary/primary.dart';
@@ -34,6 +36,9 @@ Future<void> main() async {
         "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
     baseUrl: "https://api.walkitapp.com/",
   );
+
+  //
+  licenses;
 
   // init notifications plugin
   await initNotifications();
@@ -110,21 +115,22 @@ class _MainAppState extends ConsumerState<MainApp> {
           builder: (context, snapshot) {
             final isConnected = snapshot.data == InternetStatus.connected;
             if (!isConnected) {
-              return const Scaffold(
-                body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.wifi_off, size: 64, color: Colors.red),
-                      SizedBox(height: 16),
-                      Text(
-                        'No Connection To Server',
-                        style: TextStyle(fontSize: 20, color: Colors.red),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return GamePage();
+              // return const Scaffold(
+              //   body: Center(
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Icon(Icons.wifi_off, size: 64, color: Colors.red),
+              //         SizedBox(height: 16),
+              //         Text(
+              //           'No Connection To Server',
+              //           style: TextStyle(fontSize: 20, color: Colors.red),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // );
             }
             return child!;
           },
