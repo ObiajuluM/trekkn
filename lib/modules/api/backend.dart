@@ -159,10 +159,11 @@ Future<bool?> signOutFromServer() async {
 }
 
 // Example: Login
-Future<Response> backendLogin(String? idToken, String? deviceId) async {
+Future<Response> backendLogin(String? idToken, String? deviceId, String? inviteCode) async {
   final response = await ApiClient().dio.post("auth/sign-in/", data: {
     "id_token": idToken,
     "device_id": deviceId,
+    "invite_code": inviteCode,
   });
 
   //  await ApiClient().saveTokens(

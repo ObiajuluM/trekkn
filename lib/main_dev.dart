@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ import 'package:walkit/global/flavor/config.dart';
 import 'package:walkit/licenses.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/schedule_notiifications.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/pages/game/game.dart';
 import 'package:walkit/pages/landing/landing.dart';
 import 'package:walkit/pages/primary/primary.dart';
@@ -21,7 +25,7 @@ import 'package:walkit/themes/theme_provider.dart';
 
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
   // flutter binding stuff
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +53,14 @@ Future<void> main() async {
   // awaiting seems safe
   await ApiClient().streamAccessToken();
 
+  // DO FOR AUTHENTICATION VIA DEEP LINKS
+  // final appLinks = AppLinks(); // AppLinks is singleton
+
+  // // Subscribe to all events (initial link and further)
+  // final sub = appLinks.uriLinkStream.listen((uri) {
+  //   print("object $uri");
+  // });
+
   // background stuff
   // if (await FlutterForegroundTask.isRunningService == false) {
   //   ForegroundTaskService.init();
@@ -73,7 +85,19 @@ class MainApp extends ConsumerStatefulWidget {
 }
 
 class _MainAppState extends ConsumerState<MainApp> {
-  //
+  String? _latestUri;
+
+  @override
+  void initState() {
+    super.initState();
+    final appLinks = AppLinks();
+    appLinks.uriLinkStream.listen((uri) {
+      setState(() {
+        _latestUri = extractInviteCode(uri);
+      });
+      log("object $uri");
+    });
+  }
 
   // load the preferred theme on startup
   loadPreferredThemeOnStartup() {
@@ -103,7 +127,7 @@ class _MainAppState extends ConsumerState<MainApp> {
 
     ///
     return MaterialApp(
-      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: true,
       theme: lightTheme,
       darkTheme: darkTheme,
 
@@ -117,7 +141,9 @@ class _MainAppState extends ConsumerState<MainApp> {
           builder: (context, snapshot) {
             final isConnected = snapshot.data == InternetStatus.connected;
             if (!isConnected) {
-              return GamePage();
+              return GamePage(
+                inviteCode: _latestUri,
+              );
             }
             return child!;
           },
@@ -136,7 +162,9 @@ class _MainAppState extends ConsumerState<MainApp> {
           if (snapshot.hasData) {
             return PrimaryPage();
           }
-          return LandingPage();
+          return LandingPage(
+            inviteCode: _latestUri,
+          );
         },
       ),
     );

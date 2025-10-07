@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 // }
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  final String? inviteCode;
+  const GamePage({super.key, this.inviteCode});
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -96,6 +97,7 @@ class _GamePageState extends State<GamePage> {
               left: 20,
               child: Text(
                 "Score: $score",
+                // "Score: $score ${widget.inviteCode}",
                 style: const TextStyle(
                   // color: Colors.white,
                   fontSize: 22,

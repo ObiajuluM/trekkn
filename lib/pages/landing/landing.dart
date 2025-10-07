@@ -13,7 +13,8 @@ import 'package:walkit/pages/permissions/notification.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
 class LandingPage extends ConsumerStatefulWidget {
-  const LandingPage({super.key});
+  String? inviteCode;
+  LandingPage({super.key, this.inviteCode});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LandingPageState();
@@ -62,10 +63,10 @@ class _LandingPageState extends ConsumerState<LandingPage> {
           ),
 
           ///
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
-              "Turn your daily movement into tangible rewards. Walk, explore, and earn.",
+              "Turn your daily movement into tangible rewards. Walk, explore, and earn!",
               style: TextStyle(
                 wordSpacing: 2,
                 fontSize: 15,
@@ -103,6 +104,7 @@ class _LandingPageState extends ConsumerState<LandingPage> {
               final response = await backendLogin(
                 idtoken,
                 deviceId,
+                widget.inviteCode,
               );
 
               if (response.statusCode == 200 && context.mounted) {

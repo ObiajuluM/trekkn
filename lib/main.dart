@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +17,7 @@ import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/background_step_process.dart';
 
 import 'package:walkit/modules/background/schedule_notiifications.dart';
+import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/pages/game/game.dart';
 import 'package:walkit/pages/landing/landing.dart';
 
@@ -37,7 +41,7 @@ Future<void> main() async {
     baseUrl: "https://api.walkitapp.com/",
   );
 
-  //
+  // load asset licenses
   licenses;
 
   // init notifications plugin
@@ -50,6 +54,14 @@ Future<void> main() async {
 
   // awaiting seems safe
   await ApiClient().streamAccessToken();
+
+  // DO FOR AUTHENTICATION VIA DEEP LINKS
+  // final appLinks = AppLinks(); // AppLinks is singleton
+
+  // // Subscribe to all events (initial link and further)
+  // final sub = appLinks.uriLinkStream.listen((uri) {
+  //   log("object $uri");
+  // });
 
   // background stuff
   // if (await FlutterForegroundTask.isRunningService == false) {
@@ -75,6 +87,20 @@ class MainApp extends ConsumerStatefulWidget {
 }
 
 class _MainAppState extends ConsumerState<MainApp> {
+  String? _latestUri;
+
+  @override
+  void initState() {
+    super.initState();
+    final appLinks = AppLinks();
+    appLinks.uriLinkStream.listen((uri) {
+      setState(() {
+        _latestUri = extractInviteCode(uri);
+      });
+      log("object $uri");
+    });
+  }
+
   // load the preferred theme on startup
   loadPreferredThemeOnStartup() {
     SharedPreferences.getInstance().then((prefs) {
@@ -105,6 +131,7 @@ class _MainAppState extends ConsumerState<MainApp> {
     return MaterialApp(
       theme: lightTheme,
       darkTheme: darkTheme,
+      debugShowCheckedModeBanner: false,
       // themeMode: ThemeMode.light,
       themeMode: ref.watch(themeModeProvider),
 
@@ -115,7 +142,9 @@ class _MainAppState extends ConsumerState<MainApp> {
           builder: (context, snapshot) {
             final isConnected = snapshot.data == InternetStatus.connected;
             if (!isConnected) {
-              return GamePage();
+              return GamePage(
+                inviteCode: _latestUri,
+              );
               // return const Scaffold(
               //   body: Center(
               //     child: Column(
@@ -149,7 +178,9 @@ class _MainAppState extends ConsumerState<MainApp> {
           if (snapshot.hasData) {
             return PrimaryPage();
           }
-          return LandingPage();
+          return LandingPage(
+            inviteCode: _latestUri,
+          );
         },
       ),
     );

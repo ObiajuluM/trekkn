@@ -1,0 +1,26 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.walkitapp.walkit",
+            "sha256_cert_fingerprints": [
+                "31:04:4D:6E:F7:A7:CD:7A:27:6B:22:59:D6:DE:BC:42:86:5B:71:E1:67:1E:37:63:8B:F0:CC:67:4C:5E:13:3B"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.walkitapp.walkit.dev",
+            "sha256_cert_fingerprints": [
+                "31:04:4D:6E:F7:A7:CD:7A:27:6B:22:59:D6:DE:BC:42:86:5B:71:E1:67:1E:37:63:8B:F0:CC:67:4C:5E:13:3B"
+            ]
+        }
+    }
+]

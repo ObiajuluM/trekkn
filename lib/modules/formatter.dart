@@ -1,6 +1,16 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+String? extractInviteCode(Uri? uri) {
+  if (uri == null) return null;
+  // Check if the path matches /invite/<code>
+  final segments = uri.pathSegments;
+  if (segments.length == 2 && segments[0] == 'invite') {
+    return segments[1];
+  }
+  return null;
+}
+
 final currencyFormat = NumberFormat.currency(symbol: '', decimalDigits: 0);
 final compactCurrencyFormat =
     NumberFormat.compactCurrency(symbol: '', decimalDigits: 0);

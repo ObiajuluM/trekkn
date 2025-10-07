@@ -23,7 +23,7 @@
         },
         ///
         {
-            "name": "development",
+            "name": "dev",
             "request": "launch",
             "type": "dart",
             "program": "lib/main_dev.dart",
@@ -32,6 +32,19 @@
                 "dev",
                 "target",
                 "lib/main_dev.dart"
+            ]
+        },
+        ///
+        {
+            "name": "prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "target",
+                "lib/main.dart"
             ]
         },
     ]

@@ -35,7 +35,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       if (signedOut == null) {
         // Clear the stack and push LandingPage
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const LandingPage()),
+          MaterialPageRoute(
+              builder: (_) => LandingPage(
+                    inviteCode: null,
+                  )),
           (route) => false, // removes ALL previous pages
         );
       }
