@@ -37,6 +37,8 @@ class FlavorConfig {
     return _instance!;
   }
 
+  Flavor get currentFlavor => flavor;
+
   // static checkers
   bool get isProd => flavor == Flavor.prod;
 

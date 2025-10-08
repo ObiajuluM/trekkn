@@ -9,6 +9,7 @@ import 'package:health/health.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walkit/global/components/typewriter.dart';
 import 'package:walkit/global/components/appsizing.dart';
+import 'package:walkit/global/flavor/config.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/launch_something.dart';
@@ -82,8 +83,9 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
         // set the step
         ref.read(stepCountProvider.notifier).setStep();
       } else {
-        hasPermission =
-            await health.requestAuthorization(kdataTypes).then((value) async {
+        hasPermission = await health.requestAuthorization(kdataTypes).then((
+          value,
+        ) async {
           await requestStepPermission();
           return true;
         });
@@ -106,9 +108,7 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
         actionsPadding: const EdgeInsets.all(8),
         title: const Text(
           "Step Data",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           Image.asset(
@@ -129,7 +129,6 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
           //     fontWeight: FontWeight.bold,
           //   ),
           // ),
-
           TypewriterText(
             text:
                 "I'd like access to your step data from your health provider for tracking activity & rewards.",
@@ -145,8 +144,9 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
           TypewriterText(
             text: "\nYou can manage access anytime in settings.",
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
-                fontSize: 24),
+              color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
+              fontSize: 24,
+            ),
             onComplete: () {},
           ),
 
@@ -156,85 +156,87 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
           ///
           Visibility(
             visible: visible,
-            child: Column(children: [
-              const Text(
-                "Please ensure you have the following apps installed and setup",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              /// health connect
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Image.asset(
-                  "assets/logos/google_health_connect.png",
-                  height: 32,
-                  width: 32,
-                ),
-                title: const Text(
-                  "Health Connect",
+            child: Column(
+              children: [
+                const Text(
+                  "Please ensure you have the following apps installed and setup",
                   style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: const Text("Google's health data platform"),
-                // if hralth connect is avialibel tick good else icon
-                onTap: () async {
-                  await openUrl(
-                      "https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata");
-                },
-                trailing: Checkbox(
-                    value: healthConnectAvailable, onChanged: (value) {}),
-              ),
 
-              /// Google Fit
-              ListTile(
-                onTap: () async {
-                  await openUrl(
-                      "https://play.google.com/store/apps/details?id=com.google.android.apps.fitness");
-                  setState(() {
-                    googleFitAvailable = true;
-                  });
-                },
-                contentPadding: EdgeInsets.zero,
-                leading: Image.asset(
-                  "assets/logos/google_fit.png", // <a href="https://www.flaticon.com/free-icons/fit" title="fit icons">Fit icons created by Tinti Nodarse - Flaticon</a>
-                  height: 32,
-                  width: 32,
-                ),
-                title: const Text(
-                  "Google Fit",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                /// health connect
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset(
+                    "assets/logos/google_health_connect.png",
+                    height: 32,
+                    width: 32,
+                  ),
+                  title: const Text(
+                    "Health Connect",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: const Text("Google's health data platform"),
+                  // if hralth connect is avialibel tick good else icon
+                  onTap: () async {
+                    await openUrl(
+                      "https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata",
+                    );
+                  },
+                  trailing: Checkbox(
+                    value: healthConnectAvailable,
+                    onChanged: (value) {},
                   ),
                 ),
-                subtitle:
-                    const Text("Health-tracking platform developed by Google"),
-                trailing: Checkbox(
+
+                /// Google Fit
+                ListTile(
+                  onTap: () async {
+                    await openUrl(
+                      "https://play.google.com/store/apps/details?id=com.google.android.apps.fitness",
+                    );
+                    setState(() {
+                      googleFitAvailable = true;
+                    });
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  leading: Image.asset(
+                    "assets/logos/google_fit.png", // <a href="https://www.flaticon.com/free-icons/fit" title="fit icons">Fit icons created by Tinti Nodarse - Flaticon</a>
+                    height: 32,
+                    width: 32,
+                  ),
+                  title: const Text(
+                    "Google Fit",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: const Text(
+                    "Health-tracking platform developed by Google",
+                  ),
+                  trailing: Checkbox(
                     value: googleFitAvailable,
                     onChanged: (value) async {
                       setState(() {
                         googleFitAvailable = value!;
                       });
-                    }),
-              ),
+                    },
+                  ),
+                ),
 
-              ///
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.red.shade900,
+                ///
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.red.shade900,
+                  ),
+                  onPressed: () {},
+                  label: const Text("How to?"),
+                  icon: const Icon(Icons.play_circle_outline_rounded),
                 ),
-                onPressed: () {},
-                label: const Text("How to?"),
-                icon: const Icon(
-                  Icons.play_circle_outline_rounded,
-                ),
-              )
-            ]),
-          )
+              ],
+            ),
+          ),
         ],
       ),
 
@@ -244,10 +246,7 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
           backgroundColor: doneCapping == true
               ? null
               : Theme.of(context).colorScheme.inverseSurface,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 70,
-            vertical: 16,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(36),
           ),
@@ -266,9 +265,20 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                           // conditional start foreground task service to show steps notification
                           FlutterForegroundTask.isRunningService.then((value) {
                             if (value == false) {
+                              /// initialize communication port
+                              FlutterForegroundTask.initCommunicationPort();
+                              ///
                               ForegroundTaskService.init();
+
+                              // Pass flavor type to the isolate using inputData
+                              startService(FlavorConfig.instance.currentFlavor
+                                  .toString());
                               //
-                              startService();
+
+                              ///
+                              // FlutterForegroundTask.sendDataToTask(
+                              //   FlavorConfig.instance.currentFlavor.toString(),
+                              // );
                             }
                           });
 
@@ -290,9 +300,7 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
             : null,
         child: const Text(
           "Sure, why not",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );

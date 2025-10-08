@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:walkit/global/flavor/config.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/models.dart';
@@ -9,8 +11,7 @@ import 'package:walkit/pages/home/providers/methods.dart';
 
 Future<void> rewardAndLogSteps(int steps) async {
   if (DateTime.now().hour == 23
-      //  &&
-      // steps >= 100
+      //  && steps >= 1000
       ) {
     log("enter 1");
 
@@ -69,6 +70,7 @@ const channelDescription =
 ///
 class ForegroundTaskService {
   static init() {
+    ///
     FlutterForegroundTask.init(
       androidNotificationOptions: AndroidNotificationOptions(
         channelId: channelId,
@@ -85,6 +87,7 @@ class ForegroundTaskService {
         eventAction: ForegroundTaskEventAction.repeat(
           Duration(
             minutes: 15,
+            // seconds: 5,
           ).inMilliseconds,
         ),
         // eventAction: ForegroundTaskEventAction.nothing(),
@@ -100,10 +103,15 @@ class ForegroundTaskService {
 // This decorator means that this function calls native code
 @pragma('vm:entry-point')
 void startCallback() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   FlutterForegroundTask.setTaskHandler(MyTaskHandler());
 }
 
-void startService() async {
+void startService(String flavor) async {
+  // save flavor for background task
+  FlutterForegroundTask.saveData(key: 'flavor', value: flavor);
+
   try {
     // final healthSteps = await getBackgroundStepCount();
     final healthSteps = await getAndroidStepCount();
@@ -129,9 +137,9 @@ void stopService() async {
   bool isRunning = await FlutterForegroundTask.isRunningService;
   if (isRunning) {
     await FlutterForegroundTask.stopService();
-    print("Foreground task stopped.");
+    log("Foreground task stopped.");
   } else {
-    print("No foreground task running.");
+    log("No foreground task running.");
   }
 }
 
@@ -139,11 +147,33 @@ class MyTaskHandler extends TaskHandler {
   // Called when the task is started.
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    ///
-    print('onStart(starter: ${starter.name})');
+    log('onStart(starter: ${starter.name})');
 
-    // get steps
+    // Ensure FlavorConfig is initialized for background tasks
+    final currentFlavor =
+        await FlutterForegroundTask.getData(key: 'flavor') ?? 'dev';
+
+    FlavorConfig(
+      flavor: Flavor.dev,
+      // baseUrl: "https://api.walkitapp.com",
+      googleClientId:
+          "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+      baseUrl: "http://192.168.1.61:8000/",
+    );
+    if (currentFlavor == 'prod') {
+      FlavorConfig(
+        flavor: Flavor.prod,
+        googleClientId:
+            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        baseUrl: "https://api.walkitapp.com/",
+      );
+    }
+
+    /// get steps
     final healthSteps = await getAndroidStepCount();
+
+    ///
+    await rewardAndLogSteps(healthSteps);
 
     // set initial step notification
     FlutterForegroundTask.startService(
@@ -157,14 +187,38 @@ class MyTaskHandler extends TaskHandler {
       callback: startCallback, // Function imported from ForegroundService.dart
     );
     // show love
-    await rewardAndLogSteps(healthSteps);
   }
 
   // Called based on the eventAction set in ForegroundTaskOptions.
   @override
   void onRepeatEvent(DateTime timestamp) async {
+    //
     log("object  repeated ${timestamp}");
+
+    // Ensure FlavorConfig is initialized for background tasks
+    final currentFlavor =
+        await FlutterForegroundTask.getData(key: 'flavor') ?? 'dev';
+    FlavorConfig(
+      flavor: Flavor.dev,
+      // baseUrl: "https://api.walkitapp.com",
+      googleClientId:
+          "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+      baseUrl: "http://192.168.1.61:8000/",
+    );
+
+    if (currentFlavor == 'prod') {
+      FlavorConfig(
+        flavor: Flavor.prod,
+        googleClientId:
+            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        baseUrl: "https://api.walkitapp.com/",
+      );
+    }
+
     final healthSteps = await getAndroidStepCount();
+
+    ///
+    await rewardAndLogSteps(healthSteps);
 
     // update step notification
     FlutterForegroundTask.updateService(
@@ -174,36 +228,51 @@ class MyTaskHandler extends TaskHandler {
       notificationText: "",
     );
     // show love
-    await rewardAndLogSteps(healthSteps);
   }
 
   // Called when the task is destroyed.
   @override
   Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
-    print('onDestroy');
+    log('onDestroy');
   }
 
   // Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
   @override
   void onReceiveData(Object data) {
-    print('onReceiveData: $data');
+    log('onReceiveData: $data');
+    if (data is Flavor && data == Flavor.prod) {
+      FlavorConfig(
+        flavor: data,
+        googleClientId:
+            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        baseUrl: "https://api.walkitapp.com/",
+      );
+    }
+    if (data is Flavor && data == Flavor.dev) {
+      FlavorConfig(
+        flavor: Flavor.dev,
+        googleClientId:
+            "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+        baseUrl: "http://192.168.1.61:8000/",
+      );
+    }
   }
 
   // Called when the notification button is pressed.
   @override
   void onNotificationButtonPressed(String id) {
-    print('onNotificationButtonPressed: $id');
+    log('onNotificationButtonPressed: $id');
   }
 
   // Called when the notification itself is pressed.
   @override
   void onNotificationPressed() {
-    print('onNotificationPressed');
+    log('onNotificationPressed');
   }
 
   // Called when the notification itself is dismissed.
   @override
   void onNotificationDismissed() {
-    print('onNotificationDismissed');
+    log('onNotificationDismissed');
   }
 }

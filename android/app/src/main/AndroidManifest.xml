@@ -69,8 +69,10 @@
 
                 <!-- Example invite URL -->
                 <data android:scheme="http" android:host="walkitapp.com" android:pathPrefix="/invite"/>
-
                 <data android:scheme="https" android:host="walkitapp.com" android:pathPrefix="/invite"/>
+                <!-- Title Case host support -->
+                <data android:scheme="http" android:host="Walkitapp.com" android:pathPrefix="/invite"/>
+                <data android:scheme="https" android:host="Walkitapp.com" android:pathPrefix="/invite"/>
             </intent-filter>
 
 
