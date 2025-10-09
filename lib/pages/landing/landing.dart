@@ -96,13 +96,14 @@ class _LandingPageState extends ConsumerState<LandingPage> {
           //     MaterialPageRoute(
           //         builder: (context) => const NotificationPermissionPage()));
           try {
-            final idtoken = await signInWithGoogle();
+            final (idToken, userId) = await signInWithGoogle();
 
-            final deviceId = await getDeviceId();
+            if (idToken != null) {
+              // get device id hash
+              final deviceId = await getDeviceId(userId!);
 
-            if (idtoken != null) {
               final response = await backendLogin(
-                idtoken,
+                idToken,
                 deviceId,
                 widget.inviteCode,
               );

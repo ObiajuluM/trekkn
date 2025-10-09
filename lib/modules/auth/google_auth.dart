@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:walkit/global/flavor/config.dart';
 
-Future<String?> signInWithGoogle() async {
+Future<(String?, String?)> signInWithGoogle() async {
   try {
     // create instance
     final googleSignIn = GoogleSignIn.instance;
@@ -19,11 +19,11 @@ Future<String?> signInWithGoogle() async {
 
     // Obtain auth details
     final idToken = googleUser.authentication.idToken;
-    // log(idToken!); // TODO: remove
-    return idToken;
+    final userId = googleUser.id;
+    return (idToken, userId);
   } catch (e, stackTrace) {
     log('Google Sign-In failed: $e', stackTrace: stackTrace);
-    return null;
+    return (null, null);
   }
 }
 
