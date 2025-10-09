@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:walkit/global/flavor/config.dart';
+import 'package:walkit/modules/api/URLS.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/models.dart';
@@ -158,7 +159,7 @@ class MyTaskHandler extends TaskHandler {
       // baseUrl: "https://api.walkitapp.com",
       googleClientId:
           "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-      baseUrl: "http://192.168.1.61:8000/",
+      baseUrl: testUrl,
     );
     if (currentFlavor == 'prod') {
       FlavorConfig(
@@ -203,7 +204,7 @@ class MyTaskHandler extends TaskHandler {
       // baseUrl: "https://api.walkitapp.com",
       googleClientId:
           "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-      baseUrl: "http://192.168.1.61:8000/",
+      baseUrl: testUrl,
     );
 
     if (currentFlavor == 'prod') {
@@ -253,7 +254,7 @@ class MyTaskHandler extends TaskHandler {
         flavor: Flavor.dev,
         googleClientId:
             "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-        baseUrl: "http://192.168.1.61:8000/",
+        baseUrl: testUrl,
       );
     }
   }

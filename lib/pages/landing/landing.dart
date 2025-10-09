@@ -13,7 +13,7 @@ import 'package:walkit/pages/permissions/notification.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
 class LandingPage extends ConsumerStatefulWidget {
-  String? inviteCode;
+  final String? inviteCode;
   LandingPage({super.key, this.inviteCode});
 
   @override

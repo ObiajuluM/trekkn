@@ -267,6 +267,7 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                             if (value == false) {
                               /// initialize communication port
                               FlutterForegroundTask.initCommunicationPort();
+
                               ///
                               ForegroundTaskService.init();
 

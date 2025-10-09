@@ -50,6 +50,7 @@ flutter:
     - assets/lotties/
     - assets/icons/
     - assets/logos/
+    - shorebird.yaml
 
   fonts:
       # evil empire

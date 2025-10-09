@@ -60,7 +60,6 @@ class _MePageState extends ConsumerState<MePage> {
                 overflow: TextOverflow.ellipsis,
               ),
 
-              //TODO: on tap open the network accounts page?
               trailing: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -363,12 +362,7 @@ class _MePageState extends ConsumerState<MePage> {
               ///
               ElevatedButton(
                 onPressed: () {
-                  // TODO: add discord link
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => SettingsPage(),
-                  //   ),
-                  // );
+                  openUrl("https://discord.gg/8at5m9Bx");
                 },
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),

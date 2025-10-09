@@ -14,8 +14,8 @@ class TypewriterText extends StatefulWidget {
     super.key,
     required this.text,
     this.style = const TextStyle(fontSize: 24),
-    this.speed = const Duration(milliseconds: 0),
-    // this.speed = const Duration(milliseconds: 50),
+    // this.speed = const Duration(milliseconds: 0),
+    this.speed = const Duration(milliseconds: 50),
     this.cursorBlinkSpeed = const Duration(milliseconds: 500),
     this.onComplete,
   });

@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:walkit/firebase_options.dart';
 import 'package:walkit/global/flavor/config.dart';
 import 'package:walkit/licenses.dart';
+import 'package:walkit/modules/api/URLS.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/background/schedule_notiifications.dart';
 import 'package:walkit/modules/formatter.dart';
@@ -25,7 +26,6 @@ import 'package:walkit/themes/theme_provider.dart';
 
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 
-
 Future<void> main() async {
   // flutter binding stuff
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,7 @@ Future<void> main() async {
     // baseUrl: "https://api.walkitapp.com",
     googleClientId:
         "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-    baseUrl: "http://192.168.1.61:8000/",
+    baseUrl: testUrl,
   );
 
   //

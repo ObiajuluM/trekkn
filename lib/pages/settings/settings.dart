@@ -122,9 +122,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     trailing: Text("${user.username}")),
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
-                  onTap: () {
-                    print("copy email");
-                  },
+                  onTap: () {},
                   title: Text("Email"),
                   trailing: Text("${user.email}"),
                 ),
@@ -152,7 +150,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
                   onTap: () {
-                    print("copy user since");
+                    
                   },
                   title: Text("User Since"),
                   trailing: Text(
@@ -206,11 +204,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           color: Colors.blue[900],
                         ),
                 ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  onTap: () {},
-                  title: Text("Terms & Conditions"),
-                ),
+                // ListTile(
+                //   contentPadding: EdgeInsets.all(0),
+                //   onTap: () {},
+                //   title: Text("Terms & Conditions"),
+                // ),
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
                   onTap: () {
