@@ -152,7 +152,7 @@ class MyTaskHandler extends TaskHandler {
 
     // Ensure FlavorConfig is initialized for background tasks
     final currentFlavor =
-        await FlutterForegroundTask.getData(key: 'flavor') ?? 'dev';
+        await FlutterForegroundTask.getData(key: 'flavor') ?? 'Flavor.dev';
 
     FlavorConfig(
       flavor: Flavor.dev,
@@ -161,7 +161,7 @@ class MyTaskHandler extends TaskHandler {
           "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
       baseUrl: testUrl,
     );
-    if (currentFlavor == 'prod') {
+    if (currentFlavor == 'Flavor.prod') {
       FlavorConfig(
         flavor: Flavor.prod,
         googleClientId:
@@ -169,6 +169,8 @@ class MyTaskHandler extends TaskHandler {
         baseUrl: "https://api.walkitapp.com/",
       );
     }
+
+    log(currentFlavor);
 
     /// get steps
     final healthSteps = await getAndroidStepCount();
@@ -198,7 +200,7 @@ class MyTaskHandler extends TaskHandler {
 
     // Ensure FlavorConfig is initialized for background tasks
     final currentFlavor =
-        await FlutterForegroundTask.getData(key: 'flavor') ?? 'dev';
+        await FlutterForegroundTask.getData(key: 'flavor') ?? 'Flavor.dev';
     FlavorConfig(
       flavor: Flavor.dev,
       // baseUrl: "https://api.walkitapp.com",
@@ -207,7 +209,7 @@ class MyTaskHandler extends TaskHandler {
       baseUrl: testUrl,
     );
 
-    if (currentFlavor == 'prod') {
+    if (currentFlavor == 'Flavor.prod') {
       FlavorConfig(
         flavor: Flavor.prod,
         googleClientId:
@@ -215,6 +217,7 @@ class MyTaskHandler extends TaskHandler {
         baseUrl: "https://api.walkitapp.com/",
       );
     }
+    log(currentFlavor);
 
     final healthSteps = await getAndroidStepCount();
 

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,8 +21,6 @@ import 'package:walkit/themes/dark.dart';
 import 'package:walkit/themes/light.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
-// TODO: create a page to reference all the icons we use
-
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 
 Future<void> main() async {
@@ -33,7 +30,6 @@ Future<void> main() async {
   //  do flavors for developement
   FlavorConfig(
     flavor: Flavor.dev,
-    // baseUrl: "https://api.walkitapp.com",
     googleClientId:
         "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
     baseUrl: testUrl,

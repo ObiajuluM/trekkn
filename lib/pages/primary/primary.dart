@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walkit/global/flavor/config.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/balance/balance.dart';
@@ -28,6 +31,7 @@ class _PrimaryPageState extends ConsumerState<PrimaryPage> {
   }
 
   indexLookUP(int index) async {
+    log(FlavorConfig.instance.currentFlavor.toString());
     if (index == 1) {
       ref.read(stepCountProvider.notifier).setStep();
       ref.read(trekknUserProvider.notifier).setUser();

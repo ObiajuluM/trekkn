@@ -87,17 +87,20 @@ class _NotificationPermissionPageState
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BackgroundPermissionPage(
-                              widget.response
-                            )));
+                            builder: (context) =>
+                                BackgroundPermissionPage(widget.response)));
                   }
                 });
               }
             : null,
-        onLongPress: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ConnectWalletPage()));
-        },
+        onLongPress: true == true
+            ? () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ConnectWalletPage()));
+              }
+            : null,
         child: const Text(
           "I'm ok with that",
           style: TextStyle(

@@ -42,7 +42,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "dev",
+                "prod",
                 "target",
                 "lib/main.dart"
             ]
