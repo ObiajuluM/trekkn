@@ -159,9 +159,10 @@ class _LandingPageState extends ConsumerState<LandingPage> {
             // }
           }
         },
-        onLongPress: () {
-          log("Long press for theme change");
+        onLongPress: () async {
+          log("Long press for theme change initaites logout");
           ref.read(themeModeProvider.notifier).changeTheme();
+          await signOutFromGoogle();
         },
         icon: Image.asset(
           "assets/logos/google_small.png",

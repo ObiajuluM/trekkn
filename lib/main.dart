@@ -29,8 +29,8 @@ Future<void> main() async {
   //  do flavors for developement
   FlavorConfig(
     flavor: Flavor.prod,
-    googleClientId:
-        "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+    // googleClientId:
+    //     "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
     baseUrl: "https://api.walkitapp.com/",
   );
 

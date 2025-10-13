@@ -154,18 +154,20 @@ class MyTaskHandler extends TaskHandler {
     final currentFlavor =
         await FlutterForegroundTask.getData(key: 'flavor') ?? 'Flavor.dev';
 
-    FlavorConfig(
-      flavor: Flavor.dev,
-      // baseUrl: "https://api.walkitapp.com",
-      googleClientId:
-          "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-      baseUrl: testUrl,
-    );
+    if (currentFlavor == 'Flavor.dev') {
+      FlavorConfig(
+        flavor: Flavor.dev,
+        // baseUrl: "https://api.walkitapp.com",
+        // googleClientId:
+        //     "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+        baseUrl: testUrl,
+      );
+    }
     if (currentFlavor == 'Flavor.prod') {
       FlavorConfig(
         flavor: Flavor.prod,
-        googleClientId:
-            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        // googleClientId:
+        //     "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
         baseUrl: "https://api.walkitapp.com/",
       );
     }
@@ -201,19 +203,21 @@ class MyTaskHandler extends TaskHandler {
     // Ensure FlavorConfig is initialized for background tasks
     final currentFlavor =
         await FlutterForegroundTask.getData(key: 'flavor') ?? 'Flavor.dev';
-    FlavorConfig(
-      flavor: Flavor.dev,
-      // baseUrl: "https://api.walkitapp.com",
-      googleClientId:
-          "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
-      baseUrl: testUrl,
-    );
+    if (currentFlavor == 'Flavor.dev') {
+      FlavorConfig(
+        flavor: Flavor.dev,
+        // baseUrl: "https://api.walkitapp.com",
+        // googleClientId:
+        //     "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+        baseUrl: testUrl,
+      );
+    }
 
     if (currentFlavor == 'Flavor.prod') {
       FlavorConfig(
         flavor: Flavor.prod,
-        googleClientId:
-            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        // googleClientId:
+        //     "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
         baseUrl: "https://api.walkitapp.com/",
       );
     }
@@ -247,16 +251,16 @@ class MyTaskHandler extends TaskHandler {
     if (data is Flavor && data == Flavor.prod) {
       FlavorConfig(
         flavor: data,
-        googleClientId:
-            "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
+        // googleClientId:
+        //     "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
         baseUrl: "https://api.walkitapp.com/",
       );
     }
     if (data is Flavor && data == Flavor.dev) {
       FlavorConfig(
         flavor: Flavor.dev,
-        googleClientId:
-            "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+        // googleClientId:
+        //     "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
         baseUrl: testUrl,
       );
     }

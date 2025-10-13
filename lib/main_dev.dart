@@ -30,8 +30,8 @@ Future<void> main() async {
   //  do flavors for developement
   FlavorConfig(
     flavor: Flavor.dev,
-    googleClientId:
-        "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
+    // googleClientId:
+    //     "871288827965-b4v986r414p4ac4o4uiud317mc1b9643.apps.googleusercontent.com",
     baseUrl: testUrl,
   );
 
