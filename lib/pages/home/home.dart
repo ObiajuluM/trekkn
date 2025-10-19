@@ -72,7 +72,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            _openUrl("https://walkkn.com/faq/step-permission");
+                            _openUrl(
+                                "https://youtube.com/shorts/Yk8PSGvexqY?si=PVADhfEPWbxIETle");
                           }),
                   ],
                 ),

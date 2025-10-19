@@ -241,7 +241,8 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
           ///
           InkWell(
             onTap: () {
-              openUrl("https://walkkn.com/faq/step-permission");
+              openUrl(
+                  "https://youtube.com/shorts/Yk8PSGvexqY?si=PVADhfEPWbxIETle");
             },
             child: Text(
               "Note: Step data access may not be available to Google Fit you may need to go into Health Connect and manually grant access to read and write step data.",
