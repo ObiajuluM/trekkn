@@ -1,8 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 import 'package:health/health.dart';
 
-
-
 Future<int> getAndroidStepCount() async {
   try {
     // health instance

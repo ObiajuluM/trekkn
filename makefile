@@ -27,4 +27,7 @@ install:
 	flutter build apk --flavor dev --target lib/main_dev.dart
 	flutter install --flavor dev 
 
-# To create a patch for this release, run shorebird patch --platforms=android --flavor=prod --target=lib/main.dart --release-version=0.1.0+1
+# build production flavor
+# shorebird release android --target lib/main.dart --flavor prod
+
+# To create a patch for this release, run shorebird patch --platforms=android --flavor=prod --target=lib/main.dart --release-version=0.1.0+2

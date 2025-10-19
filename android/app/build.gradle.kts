@@ -25,10 +25,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.walkitapp.walkit"
     compileSdk = 36
-    //  compileSdk = flutter.compileSdkVersion
-    // ndkVersion = "27.0.12077973"
-    // ndkVersion = "29.0.14033849"
-     ndkVersion = "28.2.13676358"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -70,6 +67,8 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             // signingConfig = signingConfigs.getByName("debug")
             signingConfig = signingConfigs.getByName("release")
+            // isMinifyEnabled = false
+            // isShrinkResources = false
         }
     }
 

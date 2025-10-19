@@ -1,7 +1,7 @@
 name: walkit
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.0+3
 
 # https://codewithandrea.com/articles/updated-formatter-dart-3-8/
 environment:

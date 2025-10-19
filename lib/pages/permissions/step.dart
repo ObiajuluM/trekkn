@@ -226,15 +226,31 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                 ),
 
                 ///
-                TextButton.icon(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.red.shade900,
-                  ),
-                  onPressed: () {},
-                  label: const Text("How to?"),
-                  icon: const Icon(Icons.play_circle_outline_rounded),
-                ),
+                // TextButton.icon(
+                //   style: TextButton.styleFrom(
+                //     foregroundColor: Colors.red.shade900,
+                //   ),
+                //   onPressed: () {},
+                //   label: const Text("How to?"),
+                //   icon: const Icon(Icons.play_circle_outline_rounded),
+                // ),
               ],
+            ),
+          ),
+
+          ///
+          InkWell(
+            onTap: () {
+              openUrl("https://walkkn.com/faq/step-permission");
+            },
+            child: Text(
+              "Note: Step data access may not be available to Google Fit you may need to go into Health Connect and manually grant access to read and write step data.",
+              style: TextStyle(
+                color: Colors.red.shade900,
+                decoration: TextDecoration.underline,
+                decorationColor: Colors.red.shade900,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ),
         ],

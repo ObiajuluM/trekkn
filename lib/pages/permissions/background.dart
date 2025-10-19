@@ -114,11 +114,6 @@ class _BackgroundPermissionPageState
                     });
                   }
                 });
-
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => StepPermissionPage()));
               }
             : null,
         child: const Text(

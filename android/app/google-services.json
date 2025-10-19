@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "871288827965-32li6517f87iorbct3okfegioel88fs0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkitapp.walkit",
+            "certificate_hash": "66d3a8cd361e23235ca5b2eca4640e6cf7fc7f41"
+          }
+        },
+        {
           "client_id": "871288827965-aeiu4daeqfl7r45k4tke5q3s21ovrbcb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

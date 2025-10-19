@@ -93,7 +93,7 @@ class _NotificationPermissionPageState
                 });
               }
             : null,
-        onLongPress: true == true
+        onLongPress: true == false
             ? () {
                 Navigator.push(
                     context,

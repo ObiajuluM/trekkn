@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:walkit/global/components/appsizing.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
@@ -21,10 +23,71 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  bool _shownZeroStepsPopup = false;
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open link')),
+      );
+    }
+  }
+
   @override
   void initState() {
     // ref.read(stepCountProvider.notifier).setStep();
     super.initState();
+
+    // Show popup if initial step count is zero (after first frame)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (!mounted) return;
+        final initialSteps = ref.read(stepCountProvider);
+        if (mounted && !_shownZeroStepsPopup && initialSteps == 0) {
+          _shownZeroStepsPopup = true;
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text(
+                'No steps yet!',
+                style: TextStyle(
+                  color: Colors.red.shade900,
+                ),
+              ),
+              content: RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  children: [
+                    const TextSpan(
+                      text:
+                          "We haven't detected any steps today. If you haven't just taken any steps today ignore this popup.\n\n",
+                    ),
+                    TextSpan(
+                        text:
+                            'Otherwise, this could be caused by an issue - click me to see how to fix it.',
+                        style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            _openUrl("https://walkkn.com/faq/step-permission");
+                          }),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      });
+    });
   }
 
   ///
@@ -32,7 +95,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final stepCount = ref.watch(stepCountProvider);
     final user = ref.watch(trekknUserProvider);
-    // final goal = user.goal ?? 1000;
 
     ///
     return Scaffold(
