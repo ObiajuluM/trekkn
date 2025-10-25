@@ -28,7 +28,6 @@ Future<void> initNotifications() async {
   );
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  
 }
 
 Future<void> scheduleDailyWalkReminder() async {
@@ -101,6 +100,34 @@ Future<void> scheduleDailyWalkReminder() async {
     'Goodnight Walker 🌛',
     'Rest well, you deserve it!',
     nextTime,
+    platformDetails,
+    androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    matchDateTimeComponents: DateTimeComponents.time, // repeat daily
+  );
+
+  ///
+  ///
+  ///
+  ///
+  ///
+  /// reminder to open app by 11 PM
+  final openAppHour = 23; // 11 PM local time
+  final openAppTime = tz.TZDateTime(
+    tz.local,
+    now.year,
+    now.month,
+    now.day,
+    openAppHour,
+    0,
+  );
+
+  final nextOpenAppTime = openAppTime;
+
+  await flutterLocalNotificationsPlugin.zonedSchedule(
+    2, // notification ID
+    '🔥It\'s time to sync your steps and keep rewards flowing.',
+    'Open Walk It or make sure it is running in the background!',
+    nextOpenAppTime,
     platformDetails,
     androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
     matchDateTimeComponents: DateTimeComponents.time, // repeat daily

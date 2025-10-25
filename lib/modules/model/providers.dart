@@ -105,7 +105,7 @@ class TrekknUserProvider extends StateNotifier<TrekknUser> {
 
   Future<void> setUser() async {
     state = await getUser();
-    // log("User fetched: ${state.username}");
+    log("User fetched: ${state.displayname}");
   }
 
   Future<void> updateUser(Map<String, dynamic> data) async {

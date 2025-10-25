@@ -87,7 +87,7 @@ class ForegroundTaskService {
       foregroundTaskOptions: ForegroundTaskOptions(
         eventAction: ForegroundTaskEventAction.repeat(
           Duration(
-            minutes: 15,
+            minutes: 10,
             // seconds: 5,
           ).inMilliseconds,
         ),

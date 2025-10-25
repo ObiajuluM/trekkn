@@ -104,7 +104,7 @@ class _BackgroundPermissionPageState
                         // });
 
                         ///
-                        if (!context.mounted) return;
+                        // if (!context.mounted) return;
                         Navigator.push(
                             context,
                             MaterialPageRoute(

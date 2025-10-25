@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walkit/global/components/appsizing.dart';
+import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/formatter.dart';
+import 'package:walkit/modules/launch_something.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/balance/balance.dart';
 import 'package:walkit/pages/goal/goal.dart';
@@ -24,27 +28,27 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   bool _shownZeroStepsPopup = false;
-
-  Future<void> _openUrl(String url) async {
-    final uri = Uri.parse(url);
-    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
-    if (!ok && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open link')),
-      );
-    }
-  }
+  Timer? _stepTimer;
 
   @override
   void initState() {
     // ref.read(stepCountProvider.notifier).setStep();
     super.initState();
 
+    // GTK: Poll steps every 1 second
+    _stepTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted) return;
+      ref.read(stepCountProvider.notifier).setStep();
+      developer.log("steps polled");
+    });
+
     // Show popup if initial step count is zero (after first frame)
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 300), () {
         if (!mounted) return;
         final initialSteps = ref.read(stepCountProvider);
+
+        ///
         if (mounted && !_shownZeroStepsPopup && initialSteps == 0) {
           _shownZeroStepsPopup = true;
           showDialog(
@@ -72,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            _openUrl(
+                            openUrl(
                                 "https://youtube.com/shorts/Yk8PSGvexqY?si=PVADhfEPWbxIETle");
                           }),
                   ],
@@ -89,6 +93,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _stepTimer?.cancel();
+    super.dispose();
   }
 
   ///

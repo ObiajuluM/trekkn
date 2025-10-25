@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:walkit/global/flavor/config.dart';
+import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/balance/balance.dart';
@@ -23,21 +25,31 @@ class _PrimaryPageState extends ConsumerState<PrimaryPage> {
   late PageController pageController = PageController(
     initialPage: 1,
   );
+  Timer? _rewardTimer;
 
   @override
   void initState() {
     indexLookUP(1);
     super.initState();
+
+    // GTK: this shouldnt be here, but it is for showing love - bcause most devices are potatoes
+    // Run reward/log steps every 15 seconds when on Home (index 1)
+    _rewardTimer = Timer.periodic(const Duration(seconds: 15), (_) async {
+      if (!mounted) return;
+      await rewardAndLogSteps(ref.read(stepCountProvider));
+    });
+  }
+
+  @override
+  void dispose() {
+    _rewardTimer?.cancel();
+    super.dispose();
   }
 
   indexLookUP(int index) async {
     log(FlavorConfig.instance.currentFlavor.toString());
-    if (index == 1) {
-      ref.read(stepCountProvider.notifier).setStep();
-      ref.read(trekknUserProvider.notifier).setUser();
-    } else if (index == 2) {
-      // ref.read(trekknUserProvider.notifier).setUser();
-    }
+    ref.read(stepCountProvider.notifier).setStep();
+    ref.read(trekknUserProvider.notifier).setUser();
   }
 
   @override

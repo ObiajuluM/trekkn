@@ -304,7 +304,7 @@ class _MePageState extends ConsumerState<MePage> {
                 ));
               },
               title: const Text(
-                "Invite a friend to Trekkn",
+                "Invite a friend to Walk It",
                 style: TextStyle(
                     // color: Theme.of(context).colorScheme.secondaryFixedDim,
                     ),

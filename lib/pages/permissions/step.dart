@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -245,7 +246,7 @@ class _StepPermissionPageState extends ConsumerState<StepPermissionPage> {
                   "https://youtube.com/shorts/Yk8PSGvexqY?si=PVADhfEPWbxIETle");
             },
             child: Text(
-              "Note: Step data access may not be available to Google Fit you may need to go into Health Connect and manually grant access to read and write step data.",
+              "Note: Step data access may not be available to Google Fit you may need to go into Health Connect and manually grant access to read and write step data.\nClick here for a quick video guide.",
               style: TextStyle(
                 color: Colors.red.shade900,
                 decoration: TextDecoration.underline,
