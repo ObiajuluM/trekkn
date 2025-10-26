@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:riverpod/riverpod.dart';
-import 'package:health/health.dart';
 import 'package:walkit/modules/api/backend.dart';
 import 'package:walkit/modules/model/models.dart';
 

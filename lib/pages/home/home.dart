@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:developer' as developer;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:walkit/global/components/appsizing.dart';
-import 'package:walkit/modules/background/background_step_process.dart';
 import 'package:walkit/modules/formatter.dart';
 import 'package:walkit/modules/launch_something.dart';
 import 'package:walkit/modules/model/providers.dart';
@@ -28,25 +25,17 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   bool _shownZeroStepsPopup = false;
-  Timer? _stepTimer;
 
   @override
   void initState() {
     // ref.read(stepCountProvider.notifier).setStep();
     super.initState();
 
-    // GTK: Poll steps every 1 second
-    _stepTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (!mounted) return;
-      ref.read(stepCountProvider.notifier).setStep();
-      developer.log("steps polled");
-    });
-
     // Show popup if initial step count is zero (after first frame)
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(seconds: 5), () {
         if (!mounted) return;
-        final initialSteps = ref.read(stepCountProvider);
+        final initialSteps = ref.watch(stepCountProvider);
 
         ///
         if (mounted && !_shownZeroStepsPopup && initialSteps == 0) {
@@ -93,12 +82,6 @@ class _HomePageState extends ConsumerState<HomePage> {
         }
       });
     });
-  }
-
-  @override
-  void dispose() {
-    _stepTimer?.cancel();
-    super.dispose();
   }
 
   ///

@@ -11,6 +11,9 @@ import 'package:walkit/modules/model/providers.dart';
 import 'package:walkit/pages/home/providers/methods.dart';
 
 Future<void> rewardAndLogSteps(int steps) async {
+  log("rewardAndLogSteps called with $steps steps");
+
+  ///
   if (DateTime.now().hour == 23
       //  && steps >= 1000
       ) {

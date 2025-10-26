@@ -27,6 +27,10 @@ install:
 	flutter build apk --flavor dev --target lib/main_dev.dart
 	flutter install --flavor dev 
 
+
+
+# flutter build appbundle --flavor prod --target lib/main.dart --release
+
 # build production flavor
 # shorebird release android --target lib/main.dart --flavor prod
 

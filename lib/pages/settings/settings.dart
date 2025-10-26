@@ -149,9 +149,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.all(0),
-                  onTap: () {
-                    
-                  },
+                  onTap: () {},
                   title: Text("User Since"),
                   trailing: Text(
                     formatDate(
