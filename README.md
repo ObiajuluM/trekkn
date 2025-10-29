@@ -116,6 +116,27 @@ If you change plugin versions, check whether `inputData` or `saveData/getData` s
 - Foreground service not starting on Android 14+
   - Verify you requested the new foreground service types (e.g., `FOREGROUND_SERVICE_HEALTH`) and runtime permissions where applicable.
 
+## On-chain deployments (smart contracts)
+
+These are the current EVM networks and contract addresses used by Walk It:
+
+| Network        | RPC URL                                      | Contract Address |
+|----------------|-----------------------------------------------|------------------|
+| Somnia (Testnet)| https://dream-rpc.somnia.network/             | `0x661A88CEF5Bb8f58822C4f334C482d1Bf0DcD1e7` |
+| Monad (Testnet) | https://testnet-rpc.monad.xyz/                | `0x0D1f40B591FbB15CDFD5bd9e03734acc114de49e` |
+| MegaETH (Testnet) | https://carrot.megaeth.com/rpc/               | `0xe496edfc5384ba76d457a75a53b9819ee9a62e3c` |
+| Flow EVM (Testnet) | https://testnet.evm.nodes.onflow.org/     | `0xE496edfc5384Ba76d457a75a53B9819Ee9a62e3C` |
+| AssetChain (Testnet) | https://enugu-rpc.assetchain.org/             | `0x2A3cf033d17E790a0BDe6724F1Ebd273f35d0449` |
+| Solana (Testnet) |              | `` |
+| XRPL EVM (Testnet) | https://rpc.testnet.xrplevm.org/          | `0x7965b0cff0ebe04051f221f07429d38d147c0c5c` |
+
+Note: Additional networks may be added or updated over time.
+
+## Backend
+
+The backend source code for Walk It is available here:
+- https://github.com/ObiajuluM/trekknbackend
+
 ## Licenses
 
 Asset and third‑party licenses are registered in `lib/licenses.dart` and surfaced via Flutter’s LicenseRegistry.
