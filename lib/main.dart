@@ -20,6 +20,9 @@ import 'package:walkit/themes/dark.dart';
 import 'package:walkit/themes/light.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
+
+//  FUCK GOOGLE PLAY STORE
+
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 
 Future<void> main() async {
