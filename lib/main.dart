@@ -4,6 +4,7 @@ import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,7 @@ import 'package:walkit/themes/dark.dart';
 import 'package:walkit/themes/light.dart';
 import 'package:walkit/themes/theme_provider.dart';
 
+import 'modules/background/background_step_process.dart';
 
 //  FUCK GOOGLE PLAY STORE
 

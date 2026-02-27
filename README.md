@@ -2,6 +2,8 @@
 
 A Flutter app that tracks daily steps, rewards activity, and supports seamless sign-in and deep linking. Built for Android and iOS with environment flavors (dev/prod), background foreground service, and Health Connect/Google Fit integration.
 
+Release notes: see [RELEASE_NOTES.md](RELEASE_NOTES.md).
+
 ## Features
 
 - Step tracking via Health Connect / Google Fit
@@ -42,6 +44,7 @@ Configure your flavors in `lib/global/flavor/config.dart` and the app entrypoint
 - `lib/main_dev.dart` uses `Flavor.dev`
 
 Each flavor must provide:
+
 - `baseUrl` – Backend URL
 - `googleClientId` – iOS client ID (only used on iOS). Android uses the Web OAuth client ID as `serverClientId`.
 
@@ -60,6 +63,7 @@ On Android, pass only `serverClientId` when initializing GoogleSignIn. On iOS, p
 ### 3) Deep Links (Android)
 
 `AndroidManifest.xml` config matches:
+
 - Schemes: `http` and `https`
 - Host: `walkitapp.com` (and TitleCase variant if needed)
 - Path prefix: `/invite`
@@ -69,6 +73,7 @@ Android host matching is case‑sensitive. Add multiple `<data>` entries if you 
 ### 4) Permissions (Android)
 
 The app requests and/or uses:
+
 - `INTERNET`, `POST_NOTIFICATIONS`
 - `ACTIVITY_RECOGNITION`, `BODY_SENSORS`, `HIGH_SAMPLING_RATE_SENSORS`
 - Foreground service permissions (`FOREGROUND_SERVICE`, plus types such as `HEALTH`, `DATA_SYNC` for Android 14+)
@@ -79,12 +84,15 @@ Ensure users enable these for accurate tracking and background service behavior.
 ## Running the App
 
 Development (dev flavor):
+
 - `flutter run -t lib/main_dev.dart --flavor dev`
 
 Production (prod flavor):
+
 - `flutter run -t lib/main.dart --flavor prod`
 
 Build APK (example):
+
 - `flutter build apk -t lib/main.dart --flavor prod`
 
 Note: Use the correct entrypoint per flavor, so the proper `FlavorConfig` is initialized.
@@ -120,21 +128,22 @@ If you change plugin versions, check whether `inputData` or `saveData/getData` s
 
 These are the current EVM networks and contract addresses used by Walk It:
 
-| Network        | RPC URL                                      | Contract Address |
-|----------------|-----------------------------------------------|------------------|
-| Somnia (Testnet)| https://dream-rpc.somnia.network/             | `0x661A88CEF5Bb8f58822C4f334C482d1Bf0DcD1e7` |
-| Monad (Testnet) | https://testnet-rpc.monad.xyz/                | `0x0D1f40B591FbB15CDFD5bd9e03734acc114de49e` |
-| MegaETH (Testnet) | https://carrot.megaeth.com/rpc/               | `0xe496edfc5384ba76d457a75a53b9819ee9a62e3c` |
-| Flow EVM (Testnet) | https://testnet.evm.nodes.onflow.org/     | `0xE496edfc5384Ba76d457a75a53B9819Ee9a62e3C` |
-| AssetChain (Testnet) | https://enugu-rpc.assetchain.org/             | `0x2A3cf033d17E790a0BDe6724F1Ebd273f35d0449` |
-| Solana (Testnet) |              | `` |
-| XRPL EVM (Testnet) | https://rpc.testnet.xrplevm.org/          | `0x7965b0cff0ebe04051f221f07429d38d147c0c5c` |
+| Network              | RPC URL                               | Contract Address                             |
+| -------------------- | ------------------------------------- | -------------------------------------------- |
+| Somnia (Testnet)     | https://dream-rpc.somnia.network/     | `0x661A88CEF5Bb8f58822C4f334C482d1Bf0DcD1e7` |
+| Monad (Testnet)      | https://testnet-rpc.monad.xyz/        | `0x0D1f40B591FbB15CDFD5bd9e03734acc114de49e` |
+| MegaETH (Testnet)    | https://carrot.megaeth.com/rpc/       | `0xe496edfc5384ba76d457a75a53b9819ee9a62e3c` |
+| Flow EVM (Testnet)   | https://testnet.evm.nodes.onflow.org/ | `0xE496edfc5384Ba76d457a75a53B9819Ee9a62e3C` |
+| AssetChain (Testnet) | https://enugu-rpc.assetchain.org/     | `0x2A3cf033d17E790a0BDe6724F1Ebd273f35d0449` |
+| Solana (Testnet)     |                                       | ``                                           |
+| XRPL EVM (Testnet)   | https://rpc.testnet.xrplevm.org/      | `0x7965b0cff0ebe04051f221f07429d38d147c0c5c` |
 
 Note: Additional networks may be added or updated over time.
 
 ## Backend
 
 The backend source code for Walk It is available here:
+
 - https://github.com/ObiajuluM/trekknbackend
 
 ## Licenses

@@ -1,4 +1,4 @@
-package com.walkitapp.walkit
+package com.walkitapp.walkitapp
 
 
 import io.flutter.embedding.android.FlutterFragmentActivity
@@ -10,7 +10,7 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterFragmentActivity(){
 
-    private val CHANNEL = "com.walkitapp.walkit/navigation"
+    private val CHANNEL = "com.walkitapp.walkitapp/navigation"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

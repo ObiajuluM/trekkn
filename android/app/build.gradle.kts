@@ -23,7 +23,7 @@ if (keystorePropertiesFile.exists()) {
 // 
 
 android {
-    namespace = "com.walkitapp.walkit"
+    namespace = "com.walkitapp.walkitapp"
     compileSdk = 36
     ndkVersion = "28.2.13676358"
 
@@ -40,7 +40,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.walkitapp.walkit"
+        applicationId = "com.walkitapp.walkitapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 26     
