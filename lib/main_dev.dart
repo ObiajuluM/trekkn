@@ -4,6 +4,7 @@ import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,8 @@ import 'package:walkit/pages/primary/primary.dart';
 import 'package:walkit/themes/dark.dart';
 import 'package:walkit/themes/light.dart';
 import 'package:walkit/themes/theme_provider.dart';
+
+import 'modules/background/background_step_process.dart';
 
 // : Starting FGS with type health callerApp=ProcessRecord{a4fb993 18284:com.walkitapp.walkit/u0a914} targetSDK=35 requires permissions: all of the permissions allOf=true [android.permission.FOREGROUND_SERVICE_HEALTH] any of the permissions allOf=false [android.permission.ACTIVITY_RECOGNITION, android.permission.BODY_SENSORS, android.permission.HIGH_SAMPLING_RATE_SENSORS]
 
@@ -63,6 +66,27 @@ Future<void> main() async {
   //   //
   //   startService();
   // }
+
+  // Background stuff 2
+  // Added this here to try and ensure the background service starts even if the user doesn't open the app for a while after installation.
+  FlutterForegroundTask.isRunningService.then((value) {
+    if (value == false) {
+      /// initialize communication port
+      FlutterForegroundTask.initCommunicationPort();
+
+      ///
+      ForegroundTaskService.init();
+
+      // Pass flavor type to the isolate using inputData
+      startService(FlavorConfig.instance.currentFlavor.toString());
+      //
+
+      ///
+      // FlutterForegroundTask.sendDataToTask(
+      //   FlavorConfig.instance.currentFlavor.toString(),
+      // );
+    }
+  });
 
   // force portrait
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

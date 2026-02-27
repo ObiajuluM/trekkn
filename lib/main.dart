@@ -68,6 +68,27 @@ Future<void> main() async {
   //   startService();
   // }
 
+  // Background stuff 2
+  // Added this here to try and ensure the background service starts even if the user doesn't open the app for a while after installation.
+  FlutterForegroundTask.isRunningService.then((value) {
+    if (value == false) {
+      /// initialize communication port
+      FlutterForegroundTask.initCommunicationPort();
+
+      ///
+      ForegroundTaskService.init();
+
+      // Pass flavor type to the isolate using inputData
+      startService(FlavorConfig.instance.currentFlavor.toString());
+      //
+
+      ///
+      // FlutterForegroundTask.sendDataToTask(
+      //   FlavorConfig.instance.currentFlavor.toString(),
+      // );
+    }
+  });
+
   // force portrait
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
